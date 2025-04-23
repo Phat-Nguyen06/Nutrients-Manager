@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create New Recipe</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/recipe-detail.css">
+    <link rel="stylesheet" href="/css/create-recipe.css" />
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo"><img src="/assets/images/img-logo/images-removebg-preview 1.png" alt=""></div>
+            <nav>
+                <ul>
+                    <li><a href="homepage.html"><i class="fas fa-home"></i> Homepage</a></li>
+                    <li><a href="foods.html"><i class="fas fa-apple-alt"></i> Foods</a></li>
+                    <li><a href="index.html" class="active"><i class="fas fa-file-alt"></i> Recipes</a></li>
+                </ul>
+            </nav>
+            <button class="signout-btn">Sign out</button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top bar -->
+            <div class="top-bar">
+                <button class="menu-btn"><i class="fas fa-bars"></i></button>
+                <span class="user-name">Cường Trần ⭡</span>
+            </div>
+
+            <div class="section-intro">
+                <h1>Recipes</h1>
+                <p>Create, check and update recipes</p>
+            </div>
+
+            <!-- Detail Layout -->
+            <div class="recipe-detail-container">
+                <div class="detail-header">
+                    <!-- Card Summary -->
+                    <div class="recipe-summary">
+                        <!-- Thẻ badge và số lượt thích -->
+                        <div class="recipe-meta">
+                            <div class="badge">Community Recipes</div>
+                            <div class="likes">
+                                <i class="far fa-heart"></i> <span>0</span>
+                            </div>
+                        </div>
+
+                        <!-- Khu vực upload ảnh -->
+                        <div class="upload-box">
+                            <i class="fas fa-image"></i>
+                            <span>Upload image</span>
+                        </div>
+
+                        <!-- Thẻ category -->
+                        <p class="tags">Vegetarian dishes</p>
+                    </div>
+
+
+                    <!-- Basic Info -->
+                    <div class="basic-info-box">
+                        <h3>Basic information</h3>
+                        <p class="basic-sub">Check and edit recipe's basic information</p>
+                        <div class="info-grid">
+                            <div class="info-row">
+                                <div class="info-label">Name</div>
+                                <div class="info-value editable">Recipe <i class="fas fa-pen"></i></div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Description</div>
+                                <div class="info-value editable"><i class="fas fa-pen"></i></div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Total time</div>
+                                <div class="info-value editable"><i class="fas fa-pen"></i></div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Preparation time</div>
+                                <div class="info-value editable"><i class="fas fa-pen"></i></div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Final weight</div>
+                                <div class="info-value editable"><em>201 grams</em> <i class="fas fa-pen"></i></div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Portions</div>
+                                <div class="info-value editable"><i class="fas fa-pen"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Creation Section (Tiêu đề + Mô tả xanh riêng) -->
+                <div class="creation-header">
+                    <h3>Creation</h3>
+                    <p>Create the recipe and choose the ingredients</p>
+                </div>
+
+                <div class="creation-body">
+                    <!-- Left Side -->
+                    <div class="creation-left">
+                        <div class="ingredients-section">
+                            <h4>Ingredients</h4>
+                            <p class="section-subtitle">Search and add ingredients to the recipe</p>
+
+                            <!-- List of selected ingredients -->
+                            <div class="selected-ingredients">
+                                <div class="ingredient-block">
+                                    <p>1 serving of babyfood, water, bottled, GERBER, without added fluoride (113 g)
+                                    </p>
+                                    <button class="btn-trash"><i class="fas fa-trash"></i></button>
+                                </div>
+                                <div class="ingredient-equivalent">+ Add new food equivalent</div>
+
+                                <div class="ingredient-block">
+                                    <p>1 serving of babyfood, tropical fruit medley (88 g)</p>
+                                    <button class="btn-trash"><i class="fas fa-trash"></i></button>
+                                </div>
+                                <div class="ingredient-equivalent">+ Add new food equivalent</div>
+                            </div>
+
+                            <!-- Add new ingredient -->
+                            <div class="add-new-ingredient">
+                                <button class="btn-collapse"><i class="fas fa-chevron-up"></i> Add new
+                                    ingredient</button>
+                            </div>
+
+                            <!-- Search & Filter -->
+                            <div class="ingredient-search-bar">
+                                <input type="text" placeholder="Search food">
+                                <select>
+                                    <option>Sort by nutrient</option>
+                                </select>
+                                <select>
+                                    <option>All databases</option>
+                                </select>
+                            </div>
+
+                            <!-- Food Table -->
+                            <div class="food-table">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Nutritional Information</th>
+                                            <th>Energy</th>
+                                            <th>Fat</th>
+                                            <th>Carbohydrate</th>
+                                            <th>Protein</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <p>Keto 90 Second Bread</p>
+                                                <small>Community Recipes</small>
+                                                <div class="portion-input">
+                                                    <input type="number" value="1"> portion (87 grams)
+                                                </div>
+                                            </td>
+                                            <td>301 kcal</td>
+                                            <td>27 g</td>
+                                            <td>6 g</td>
+                                            <td>11 g</td>
+                                            <td><button class="btn-add"><i class="fas fa-plus"></i></button></td>
+                                        </tr>
+                                        <!-- Các dòng khác giống vậy -->
+                                    </tbody>
+                                </table>
+                                <!-- Pagination -->
+                                <div class="pagination">
+                                    <button>1</button>
+                                    <button>2</button>
+                                    <button>3</button>
+                                    <button>4</button>
+                                    <button>5</button>
+                                    <button><i class="fas fa-forward"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Cooking Method -->
+                        <div class="cooking-method-section">
+                            <h4>Cooking method</h4>
+                            <p class="section-subtitle">Give instructions to prepare the recipe</p>
+                            <div class="cooking-step">
+                                <input type="text" placeholder="Add new cooking method">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Side -->
+                    <div class="creation-right">
+                        <div class="global-analysis-box">
+                            <h4>Global analysis</h4>
+                            <p>Energy, macronutrients and fiber distribution</p>
+                            <p>Energy: <strong>40 kcal</strong></p>
+                            <ul>
+                                <li>0g Fat</li>
+                                <li>11g Carbohydrate</li>
+                                <li>0g Protein</li>
+                                <li>1g Fiber</li>
+                            </ul>
+                        </div>
+
+                        <div class="macro-pie-box">
+                            <h4>Macronutrients</h4>
+                            <p>Macronutrient distribution of the recipe</p>
+                            <img src="/assets/images/pie-placeholder.png" alt="Pie Chart">
+                        </div>
+
+                        <div class="micronutrient-table-box">
+                            <h4>Micronutrients</h4>
+                            <p>Micronutrient distribution of the recipe</p>
+                            <table>
+                                <tr>
+                                    <td>Sodium</td>
+                                    <td>0 mg</td>
+                                </tr>
+                                <tr>
+                                    <td>Vitamin A</td>
+                                    <td>6 µg</td>
+                                </tr>
+                                <tr>
+                                    <td>Vitamin B-6</td>
+                                    <td>0 mg</td>
+                                </tr>
+                                <tr>
+                                    <td>Vitamin B-12</td>
+                                    <td>0 µg</td>
+                                </tr>
+                                <tr>
+                                    <td>Vitamin C</td>
+                                    <td>14 mg</td>
+                                </tr>
+                                <!-- Các dòng khác -->
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

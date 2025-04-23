@@ -1,0 +1,239 @@
+/* recipe-detail.css */
+
+.recipe-detail-container {
+    padding: 25px 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.detail-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Recipe Summary Card */
+.recipe-summary {
+    width: 220px;
+}
+
+.summary-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: white;
+    height: 70%;
+    padding: 30px 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.recipe-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.summary-card .tags {
+    border: 1px #F3F3F4 solid;
+    border-radius: 3px;
+    width: 123.69000244140625px;
+    padding: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.summary-action {
+    margin-top: 25px;
+}
+
+.summary-action i {
+    color: #CC5965;
+}
+
+.btn-fav {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #444;
+    transition: background-color 0.3s ease;
+}
+
+.btn-fav:hover {
+    background-color: #f5f5f5;
+}
+
+
+/* Basic Info */
+.basic-info-box {
+    flex: 1;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.basic-info-box h3 {
+    font-size: 16px;
+}
+
+/* 
+.basic-info-box {
+    background: white;
+    padding: 25px 30px;
+    border-radius: 10px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+} */
+
+.basic-info-box h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.basic-info-box .basic-sub {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 20px;
+}
+
+.info-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.info-row {
+    display: flex;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid #e0e0e0;
+}
+
+.info-label {
+    width: 180px;
+    background: #f0f0f0;
+    padding: 12px 15px;
+    font-weight: 500;
+    font-size: 14px;
+    color: #444;
+    flex-shrink: 0;
+}
+
+.info-value {
+    flex: 1;
+    background: #fafafa;
+    padding: 12px 15px;
+    font-size: 14px;
+    color: #333;
+}
+
+
+.creation-header {
+    background: #20c997;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 8px;
+    margin: 25px 0 20px;
+}
+
+.creation-header h3 {
+    margin-bottom: 4px;
+}
+
+.creation-body {
+    display: flex;
+    gap: 25px;
+    align-items: flex-start;
+}
+
+.creation-left {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.creation-right {
+    flex: 1.2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Box styling chung cho cả ingredients, global analysis,... */
+.ingredients-section,
+.cooking-method-section,
+.global-analysis-box,
+.macro-pie-box,
+.micronutrient-table-box {
+    background: #fff;
+    padding: 20px 25px;
+    border-radius: 10px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
+}
+
+.section-subtitle {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.ingredients-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    /* khoảng cách giữa các item */
+}
+
+.ingredient-item {
+    padding: 12px 16px;
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    font-size: 15px;
+    line-height: 1.5;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.macro-values {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 10px;
+}
+
+.macro-values li {
+    margin-bottom: 6px;
+    font-size: 14px;
+}
+
+.macro-values span {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.micronutrient-table-box table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.micronutrient-table-box td {
+    padding: 6px 10px;
+    border-bottom: 1px solid #eee;
+}

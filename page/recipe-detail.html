@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe Detail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/recipe-detail.css" />
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo"><img src="/assets/images/img-logo/images-removebg-preview 1.png" alt=""></div>
+            <nav>
+                <ul>
+                    <li><a href="homepage.html"><i class="fas fa-home"></i> Homepage</a></li>
+                    <li><a href="foods.html"><i class="fas fa-apple-alt"></i> Foods</a></li>
+                    <li><a href="index.html" class="active"><i class="fas fa-file-alt"></i> Recipes</a></li>
+                </ul>
+            </nav>
+            <button class="signout-btn">Sign out</button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top bar -->
+            <div class="top-bar">
+                <button class="menu-btn"><i class="fas fa-bars"></i></button>
+                <span class="user-name">Cường Trần ⭡</span>
+            </div>
+
+            <div class="section-intro">
+                <h1>Recipes</h1>
+                <p>Create, check and update recipes</p>
+            </div>
+
+            <!-- Detail Layout -->
+            <div class="recipe-detail-container">
+                <div class="detail-header">
+                    <!-- Card Summary -->
+                    <div class="recipe-summary">
+                        <!-- Khối hiển thị thông tin badge + likes -->
+                        <div class="summary-card">
+                            <div class="recipe-meta">
+                                <div class="badge">Community Recipes</div>
+                                <div class="likes">
+                                    <i class="far fa-heart"></i> <span>37</span>
+                                </div>
+                            </div>
+                            <p class="tags">Vegetarian dishes</p>
+                        </div>
+
+                        <!-- Khối Add to favourite -->
+                        <div class="summary-action">
+                            <button class="btn-fav"><i class="fas fa-heart"></i> Add to favourite</button>
+                        </div>
+                    </div>
+
+
+                    <!-- Basic Info -->
+                    <div class="basic-info-box">
+                        <h3>Basic information</h3>
+                        <p class="basic-sub">Check and edit recipe's basic information</p>
+
+                        <div class="info-grid">
+                            <div class="info-row">
+                                <div class="info-label">Name</div>
+                                <div class="info-value">Turmeric Roasted Cauliflower Salad (lowfodmap)</div>
+                            </div>
+
+                            <div class="info-row">
+                                <div class="info-label">Description</div>
+                                <div class="info-value">Our roasted cauliflower salad with turmeric is low in calories
+                                    and packed with punchy flavor. Turmeric adds lovely color and flavor to this easy
+                                    vegan-friendly recipe</div>
+                            </div>
+
+                            <div class="info-row">
+                                <div class="info-label">Author</div>
+                                <div class="info-value">Joana Jardim</div>
+                            </div>
+
+                            <div class="info-row">
+                                <div class="info-label">Total time</div>
+                                <div class="info-value">00:40</div>
+                            </div>
+
+                            <div class="info-row">
+                                <div class="info-label">Preparation time</div>
+                                <div class="info-value">00:40</div>
+                            </div>
+
+                            <div class="info-row">
+                                <div class="info-label">Final weight</div>
+                                <div class="info-value">978.8 grams</div>
+                            </div>
+
+                            <div class="info-row">
+                                <div class="info-label">Portions</div>
+                                <div class="info-value">4</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Creation Section (Tiêu đề + Mô tả xanh riêng) -->
+                <div class="creation-header">
+                    <h3>Creation</h3>
+                    <p>Create the recipe and choose the ingredients</p>
+                </div>
+
+                <div class="creation-body">
+                    <!-- Bên trái: Ingredients + Cooking method -->
+                    <div class="creation-left">
+
+                        <!-- Ingredients -->
+                        <div class="ingredients-section">
+                            <h4>Ingredients</h4>
+                            <p class="section-subtitle">Search and add ingredients to the recipe</p>
+                            <div class="ingredients-list">
+                                <div class="ingredient-item">1 chopped cup (1/2" pieces) of cauliflower, raw (107 g)
+                                </div>
+                                <div class="ingredient-item">1 tsp of spices, turmeric, ground (3 g)</div>
+                                <div class="ingredient-item">1 tbsp of olive oil (14 g)</div>
+                                <div class="ingredient-item">100 grams of rice, brown, medium-grain, raw</div>
+                                <div class="ingredient-item">150 grams of edamame, frozen, unprepared</div>
+                                <div class="ingredient-item">1 cup, sections of lemons, raw, without peel (212 g)</div>
+                                <div class="ingredient-item">1 cup slices of cucumber, with peel, raw (104 g)</div>
+                                <div class="ingredient-item">4 tbsps of parsley, fresh (15 g)</div>
+                                <div class="ingredient-item">50 grams of nuts, cashew nuts, oil roasted, with salt added
+                                </div>
+                                <div class="ingredient-item">5 tbsps of vinegar, balsamic (80 g)</div>
+                                <div class="ingredient-item">4 tbsps of soy sauce made from soy (tamari) (72 g)</div>
+                                <div class="ingredient-item">1 tablespoon of oil, sesame, salad or cooking (14 g)</div>
+                                <div class="ingredient-item">1 tbsp of sauce, fish, ready-to-serve (18 g)</div>
+                                <div class="ingredient-item">2 tbsps of syrups, maple (40 g)</div>
+                            </div>
+                        </div>
+
+                        <!-- Cooking method -->
+                        <div class="cooking-method-section">
+                            <h4>Cooking Method</h4>
+                            <p class="section-subtitle">Give instructions to prepare this recipe</p>
+                            <p class="method-content">
+                                STEP 1 Heat the oven to 200C/fan 180C/gas 6. Put the cauliflower in an ovenproof dish or
+                                tin, add the turmeric, olive oil and salt, then toss together. Roast for 20–25 minutes
+                                until tender. Tip onto a plate and cool.<br><br>
+                                STEP 2 Meanwhile, boil the rice in salted water until tender, adding the edamame for the
+                                last minute of cooking, then drain well. Leave to cool, then tip into a large bowl. Add
+                                the roasted cauliflower, lemon juice, cucumber and some seasoning, and toss together.
+                                Add the herbs and toss again. Add mint for extra flavor.<br><br>
+                                STEP 3 Whisk together the dressing ingredients. Divide the cauliflower and rice between
+                                plates, scatter over the cashews and drizzle with the dressing.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Bên phải: Global + Macro Pie + Micro Table -->
+                    <div class="creation-right">
+
+                        <!-- Global analysis -->
+                        <div class="global-analysis-box">
+                            <h4>Global analysis per portion</h4>
+                            <p class="section-subtitle">Energy, macronutrients and fiber distribution</p>
+                            <p><strong>Energy:</strong> 351 kcal</p>
+                            <ul class="macro-values">
+                                <li><span>16g</span> Fat</li>
+                                <li><span>45g</span> Carbohydrate</li>
+                                <li><span>12g</span> Protein</li>
+                                <li><span>6g</span> Fiber</li>
+                            </ul>
+                        </div>
+
+                        <!-- Macronutrient Pie Chart -->
+                        <div class="macro-pie-box">
+                            <h4>Macronutrients per portion</h4>
+                            <p class="section-subtitle">Macronutrient distribution of the recipe</p>
+                            <img src="/assets/images/pie-placeholder.png" alt="Macronutrient Pie Chart">
+                        </div>
+
+                        <!-- Micronutrient Table -->
+                        <div class="micronutrient-table-box">
+                            <h4>Micronutrients per portion</h4>
+                            <p class="section-subtitle">Micronutrient distribution of the recipe</p>
+                            <table>
+                                <tr>
+                                    <td>Sodium</td>
+                                    <td>1418 mg</td>
+                                </tr>
+                                <tr>
+                                    <td>Vitamin A</td>
+                                    <td>18 µg</td>
+                                </tr>
+                                <tr>
+                                    <td>Vitamin B-6</td>
+                                    <td>0 mg</td>
+                                </tr>
+                                <tr>
+                                    <td>Vitamin B-12</td>
+                                    <td>0 µg</td>
+                                </tr>
+                                <tr>
+                                    <td>Vitamin C</td>
+                                    <td>50 mg</td>
+                                </tr>
+                                <tr>
+                                    <td>Iron</td>
+                                    <td>7 mg</td>
+                                </tr>
+                                <!-- ... -->
+                            </table>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+</body>
+
+</html>

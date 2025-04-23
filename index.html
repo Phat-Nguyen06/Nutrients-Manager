@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nutrition Recipes</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo"><img src="/assets/images/img-logo/images-removebg-preview 1.png" alt=""></div>
+      <nav>
+        <ul>
+          <li><a href="#" class="active"><i class="fas fa-home"></i> Homepage</a></li>
+          <li><a href="/page/foods.html"><i class="fas fa-apple-alt"></i> Foods</a></li>
+          <li><a href="/page/my-recipes.html"><i class="fas fa-file-alt"></i> Recipes</a></li>
+        </ul>
+      </nav>
+      <button class="signout-btn"><a href="/login.html">Sign out</a></button>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Top bar -->
+      <div class="top-bar">
+        <button class="menu-btn"><i class="fas fa-bars"></i></button>
+        <span class="user-name"></span>
+      </div>
+
+      <!-- Phần giới thiệu trang -->
+      <div class="section-intro">
+        <h1>Recipes</h1>
+        <p>Create, check and update recipes</p>
+      </div>
+
+      <!-- Phần điều khiển tìm kiếm -->
+      <div class="recipes-controls">
+        <h2>Recipes</h2>
+        <p>Search, check and create new recipes</p>
+
+        <section class="search-bar">
+          <input type="text" id="searchInput" placeholder="Search recipes..." />
+
+          <div class="sort-group">
+            <i class="fas fa-sort-amount-up-alt"></i>
+            <select id="sortSelect">
+              <option value="" disabled selected hidden>Sort by nutrient</option>
+              <option value="energy">Energy</option>
+              <option value="fat">Fat</option>
+              <option value="carbs">Carbohydrate</option>
+              <option value="protein">Protein</option>
+            </select>
+          </div>
+
+          <select id="categorySelect">
+            <option value="" disabled selected hidden>All categories</option>
+            <option value="Desserts">Desserts</option>
+            <option value="Breakfast and snacks">Breakfast and snacks</option>
+            <option value="Appetizers and side dishes">Appetizers and side dishes</option>
+            <option value="Soups">Soups</option>
+            <option value="Meat dishes">Meat dishes</option>
+            <option value="Fish dishes">Fish dishes</option>
+            <option value="Vegetarian dishes">Vegetarian dishes</option>
+          </select>
+        </section>
+
+
+
+        <!-- Recipe card list -->
+        <section class="recipe-list">
+          <!-- Sample card -->
+          <!-- <div class="recipe-card">
+
+            <div class="card-badge">
+              <div class="badge">Community Recipes</div>
+            </div>
+
+            <div class="card-body">
+              <div class="card-header">
+                <div>
+                  <h2 class="recipe-title">Turmeric Roasted Cauliflower Salad (lowfodmap)</h2>
+                  <div class="card-meta">
+                    <p class="author">Joana Jardim</p>
+                    <div class="likes">
+                      <i class="far fa-heart"></i> <span>33</span>
+                    </div>
+                  </div>
+                  <p class="tags">Vegetarian dishes</p>
+                </div>
+              </div>
+
+              <div class="nutrition-table">
+                <div class="nutrient">by<br><strong>100g</strong></div>
+                <div class="nutrient">Energy<br><strong>87 kcal</strong></div>
+                <div class="nutrient">Fat<br><strong>4 g</strong></div>
+                <div class="nutrient">Carbohydrate<br><strong>8 g</strong></div>
+                <div class="nutrient">Protein<br><strong>5 g</strong></div>
+              </div>
+            </div>
+
+          </div> -->
+          <!-- ... nhiều recipe-card khác -->
+        </section>
+
+        <!-- Pagination -->
+        <footer class="pagination pagination-recipes" id="pagination">
+          <!-- <button class="prev-page">«</button>
+          <div class="page-numbers"></div>
+          <button class="next-page">»</button> -->
+        </footer>
+
+      </div>
+    </main>
+
+  </div>
+
+  <script src="/js/index.js"></script>
+</body>
+
+</html>

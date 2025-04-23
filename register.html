@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+  <link rel="stylesheet" href="/css/register.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="form-box">
+      <div class="logo">
+        <img src="/assets/images/img-logo/images-removebg-preview 1.png" alt="Logo">
+      </div>
+      <h2>Please sign up</h2>
+      <form id="register-form">
+        <input type="email" id="email" placeholder="Email address" />
+        <p class="error-message" id="emailError"></p>
+
+        <input type="text" id="username" placeholder="Username" />
+        <p class="error-message" id="usernameError"></p>
+
+        <input type="password" id="password" placeholder="Password" />
+        <p class="error-message" id="passwordError"></p>
+
+        <div class="register-link">
+          <span>Already have an account,</span>
+          <a href="#">click here !</a>
+        </div>
+
+        <button type="submit">Sign up</button>
+      </form>
+      <footer>© 2025 - Rikkei Education</footer>
+    </div>
+  </div>
+
+  <script src="/js/register.js"></script>
+</body>
+
+</html>

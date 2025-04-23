@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nutrition Foods</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo"><img src="/assets/images/img-logo/images-removebg-preview 1.png" alt=""></div>
+            <nav>
+                <ul>
+                    <li><a href="/index.html"><i class="fas fa-home"></i> Homepage</a></li>
+                    <li><a href="#" class="active"><i class="fas fa-apple-alt"></i> Foods</a></li>
+                    <li><a href="/page/my-recipes.html"><i class="fas fa-file-alt"></i> Recipes</a></li>
+                </ul>
+            </nav>
+            <button class="signout-btn">Sign out</button>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top bar -->
+            <div class="top-bar">
+                <button class="menu-btn"><i class="fas fa-bars"></i></button>
+                <span class="user-name">Cường Trần ⭡</span>
+            </div>
+
+            <!-- Section intro -->
+            <div class="section-intro">
+                <h1>Foods</h1>
+                <p>Create, check and update foods</p>
+            </div>
+
+            <!-- Controls -->
+            <div class="recipes-controls">
+                <h2>Foods</h2>
+                <p>Search, check and create new foods</p>
+
+                <section class="search-bar">
+                    <input type="text" placeholder="Search food..." />
+
+                    <div class="sort-group">
+                        <i class="fas fa-sort-amount-up-alt"></i>
+                        <select>
+                            <option value="">Sort by nutrient</option>
+                            <option value="">Energy</option>
+                            <option value="">Fat</option>
+                            <option value="">Carbohydrate</option>
+                            <option value="">Protein</option>
+                        </select>
+                    </div>
+
+                    <select>
+                        <option value="">Category</option>
+                    </select>
+                </section>
+
+
+                <section class="food-table">
+                    <div class="food-row">
+                        <div class="food-info">
+                            <p class="food-name">Ackee, canned, drained</p>
+                            <p class="food-source">McCance and Widdowson's</p>
+                        </div>
+                        <div class="nutrients">151 kcal<br><span>Energy</span></div>
+                        <div class="nutrients">15 g<br><span>Fat</span></div>
+                        <div class="nutrients">1 g<br><span>Carbohydrate</span></div>
+                        <div class="nutrients">3 g<br><span>Protein</span></div>
+                    </div>
+
+                    <div class="food-row">
+                        <div class="food-info">
+                            <p class="food-name">Agar, dried, soaked and drained</p>
+                            <p class="food-source">McCance and Widdowson's</p>
+                        </div>
+                        <div class="nutrients">2 kcal<br><span>Energy</span></div>
+                        <div class="nutrients">0 g<br><span>Fat</span></div>
+                        <div class="nutrients">0 g<br><span>Carbohydrate</span></div>
+                        <div class="nutrients">0 g<br><span>Protein</span></div>
+                    </div>
+                </section>
+
+                <div class="create-food-btn">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Create food</span>
+                </div>
+
+                <footer class="pagination pagination-foods">
+                    <button>«</button>
+                    <button class="active">1</button>
+                    <button>2</button>
+                    <button>3</button>
+                    <button>4</button>
+                    <button>5</button>
+                    <button>…</button>
+                    <button>»</button>
+                </footer>
+
+            </div>
+        </main>
+
+
+        <!-- ========== MODAL FOOD INFO ========== -->
+        <div id="foodModal" class="modal-overlay">
+            <div class="modal-content"> 
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h2>Food information</h2>
+                    <span class="modal-close" id="closeModal">&times;</span> <!-- top: 10px; right: 15px -->
+                </div>
+
+                <p class="modal-sub">Check and update the information about the food</p>
+
+                <form class="food-form">
+
+                    <!-- ✅ Thông tin cơ bản -->
+                    <div class="basic-info-grid">
+                        <!-- Name -->
+                        <div class="field-block">
+                            <div class="field-label">Name</div>
+                            <input type="text" class="field-input" value="Ackee, canned, drained">
+                        </div>
+                        <!-- Source -->
+                        <div class="field-block">
+                            <div class="field-label">Source</div>
+                            <input type="text" class="field-input" value="McCance and Widdowson's">
+                        </div>
+                        <!-- Category -->
+                        <div class="field-block">
+                            <div class="field-label">Category</div>
+                            <input type="text" class="field-input" value="Vegetables and Vegetable Products">
+                        </div>
+                        <!-- Quantity -->
+                        <div class="field-block with-unit">
+                            <div class="field-label">Quantity</div>
+                            <input type="number" class="field-input" value="100">
+                            <div class="unit-label">grams</div>
+                        </div>
+                    </div>
+
+                    <!-- Nutritional note -->
+                    <div class="nutri-note">Nutritional value per 100 g</div>
+
+                    <!-- ✅ Macronutrients -->
+                    <div class="macro-section">
+                        <h3>Macronutrients</h3>
+                        <div class="macro-grid">
+                            <!-- Energy -->
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Energy</div>
+                                <input type="number" class="nutrient-input" value="151.0">
+                                <div class="nutrient-unit">kcal</div>
+                            </div>
+                            <!-- Fat -->
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Fat</div>
+                                <input type="number" class="nutrient-input" value="15.2">
+                                <div class="nutrient-unit">g</div>
+                            </div>
+                            <!-- Carb -->
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Carbohydrate</div>
+                                <input type="number" class="nutrient-input" value="0.8">
+                                <div class="nutrient-unit">g</div>
+                            </div>
+                            <!-- Protein -->
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Protein</div>
+                                <input type="number" class="nutrient-input" value="2.9">
+                                <div class="nutrient-unit">g</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ✅ Micronutrients -->
+                    <div class="micro-section">
+                        <h3>Micronutrients</h3>
+
+                        <div class="micro-grid">
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Cholesterol</div><input type="number" class="nutrient-input"
+                                    value="0.0">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Fiber</div>
+                                <input type="number" class="nutrient-input" value="0.0">
+                                <div class="nutrient-unit">g</div>
+                            </div>
+                            <!-- Sodium -->
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Sodium</div>
+                                <input type="number" class="nutrient-input" value="240.0">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Water</div><input type="number" class="nutrient-input"
+                                    value="76.7">
+                                <div class="nutrient-unit">g</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Vitamin A</div><input type="number" class="nutrient-input"
+                                    value="0.0">
+                                <div class="nutrient-unit">µg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Vitamin B-6</div>
+                                <input type="number" class="nutrient-input" value="0.06">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Vitamin B-12</div><input type="number"
+                                    class="nutrient-input" value="0.0">
+                                <div class="nutrient-unit">µg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Vitamin C</div>
+                                <input type="number" class="nutrient-input" value="30.0">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Vitamin D (D2 + D3)</div><input type="number"
+                                    class="nutrient-input" value="0.0">
+                                <div class="nutrient-unit">µg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Vitamin E</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Vitamin K</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">µg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Starch</div><input type="number" class="nutrient-input"
+                                    value="0.0">
+                                <div class="nutrient-unit">g</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Lactose</div><input type="number" class="nutrient-input"
+                                    value="0.0">
+                                <div class="nutrient-unit">g</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Alcohol</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">g</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Caffeine</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Sugars</div><input type="number" class="nutrient-input"
+                                    value="0.8">
+                                <div class="nutrient-unit">g</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Calcium</div><input type="number" class="nutrient-input"
+                                    value="35.0">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Iron</div><input type="number" class="nutrient-input"
+                                    value="0.7">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Magnesium</div><input type="number" class="nutrient-input"
+                                    value="40.0">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Phosphorus</div><input type="number" class="nutrient-input"
+                                    value="47.0">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Potassium</div><input type="number" class="nutrient-input"
+                                    value="270.0">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Zinc</div><input type="number" class="nutrient-input"
+                                    value="0.6">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Copper</div><input type="number" class="nutrient-input"
+                                    value="0.27">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Fluoride</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">µg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Manganese</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Selenium</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">µg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Thiamin</div><input type="number" class="nutrient-input"
+                                    value="0.03">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Riboflavin</div><input type="number" class="nutrient-input"
+                                    value="0.07">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Niacin</div><input type="number" class="nutrient-input"
+                                    value="0.6">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Pantothenic acid</div><input type="number"
+                                    class="nutrient-input" value="">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Folate, total</div><input type="number"
+                                    class="nutrient-input" value="41.0">
+                                <div class="nutrient-unit">µg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Folic acid</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">µg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Fatty acids, total trans</div><input type="number"
+                                    class="nutrient-input" value="0.0">
+                                <div class="nutrient-unit">g</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Fatty acids, total saturated</div><input type="number"
+                                    class="nutrient-input" value="">
+                                <div class="nutrient-unit">g</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Fatty acids, total monounsaturated</div><input type="number"
+                                    class="nutrient-input" value="">
+                                <div class="nutrient-unit">g</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Fatty acids, total polyunsaturated</div><input type="number"
+                                    class="nutrient-input" value="">
+                                <div class="nutrient-unit">g</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Chloride</div><input type="number" class="nutrient-input"
+                                    value="340.0">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn-cancel">Cancel</button>
+                        <button type="submit" class="btn-save">Save and close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+        <!-- Modal: Create new food -->
+        <div id="createFoodModal" class="modal-overlay">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h2>Add new food</h2>
+                    <span class="modal-close" id="closeCreateModal">&times;</span>
+                </div>
+
+                <p class="modal-sub">Fill in the fields below with the food information</p>
+
+                <form class="food-form">
+
+                    <!-- Basic Info -->
+                    <div class="basic-info-grid">
+                        <div class="field-block">
+                            <div class="field-label">Name</div>
+                            <input type="text" class="field-input" value="">
+                        </div>
+                        <div class="field-block">
+                            <div class="field-label">Source</div>
+                            <input type="text" class="field-input" value="">
+                        </div>
+                        <div class="field-block">
+                            <div class="field-label">Category</div>
+                            <input type="text" class="field-input" value="">
+                        </div>
+                        <div class="field-block with-unit">
+                            <div class="field-label">Quantity</div>
+                            <input type="number" class="field-input" value="100">
+                            <div class="unit-label">grams</div>
+                        </div>
+                    </div>
+
+                    <div class="nutri-note">Nutritional value per 100 g</div>
+
+                    <!-- Macronutrients -->
+                    <div class="macro-section">
+                        <h3>Macronutrients</h3>
+                        <div class="macro-grid">
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Energy</div>
+                                <input type="number" class="nutrient-input" value="">
+                                <div class="nutrient-unit">kcal</div>
+                            </div>
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Fat</div>
+                                <input type="number" class="nutrient-input" value="">
+                                <div class="nutrient-unit">g</div>
+                            </div>
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Carbohydrate</div>
+                                <input type="number" class="nutrient-input" value="">
+                                <div class="nutrient-unit">g</div>
+                            </div>
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Protein</div>
+                                <input type="number" class="nutrient-input" value="">
+                                <div class="nutrient-unit">g</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Micronutrients -->
+                    <div class="micro-section">
+                        <h3>Micronutrients</h3>
+                        <div class="micro-grid">
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Cholesterol</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Fiber</div>
+                                <input type="number" class="nutrient-input" value="">
+                                <div class="nutrient-unit">g</div>
+                            </div>
+                            <!-- Sodium -->
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Sodium</div>
+                                <input type="number" class="nutrient-input" value="">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Water</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">g</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Vitamin A</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">µg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Vitamin B-6</div>
+                                <input type="number" class="nutrient-input" value="">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Vitamin B-12</div><input type="number"
+                                    class="nutrient-input" value="">
+                                <div class="nutrient-unit">µg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Vitamin C</div>
+                                <input type="number" class="nutrient-input" value="">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Vitamin D (D2 + D3)</div><input type="number"
+                                    class="nutrient-input" value="">
+                                <div class="nutrient-unit">µg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Vitamin E</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Vitamin K</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">µg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Starch</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">g</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Lactose</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">g</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Alcohol</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">g</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Caffeine</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Sugars</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">g</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Calcium</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Iron</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Magnesium</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Phosphorus</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Potassium</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Zinc</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Copper</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Fluoride</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">µg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Manganese</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Selenium</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">µg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Thiamin</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Riboflavin</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Niacin</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Pantothenic acid</div><input type="number"
+                                    class="nutrient-input" value="">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Folate, total</div><input type="number"
+                                    class="nutrient-input" value="">
+                                <div class="nutrient-unit">µg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Folic acid</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">µg</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Fatty acids, total trans</div><input type="number"
+                                    class="nutrient-input" value="">
+                                <div class="nutrient-unit">g</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Fatty acids, total saturated</div><input type="number"
+                                    class="nutrient-input" value="">
+                                <div class="nutrient-unit">g</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Fatty acids, total monounsaturated</div><input type="number"
+                                    class="nutrient-input" value="">
+                                <div class="nutrient-unit">g</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Fatty acids, total polyunsaturated</div><input type="number"
+                                    class="nutrient-input" value="">
+                                <div class="nutrient-unit">g</div>
+                            </div>
+
+                            <div class="nutrient-row">
+                                <div class="nutrient-label">Chloride</div><input type="number" class="nutrient-input"
+                                    value="">
+                                <div class="nutrient-unit">mg</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" id="createCancel" class="btn-cancel">Cancel</button>
+                        <button type="submit" id="createSubmit" class="btn-save">Create food</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+        
+
+    </div>
+</body>
+
+
+</html>
