@@ -44,30 +44,43 @@
                 <p>Search, check and create new foods</p>
 
                 <section class="search-bar">
-                    <input type="text" placeholder="Search food..." />
+                    <input id="searchInput" type="text" placeholder="Search food..." />
 
                     <div class="sort-group">
                         <i class="fas fa-sort-amount-up-alt"></i>
-                        <select>
+                        <select id="sortNutrientSelect">
                             <option value="">Sort by nutrient</option>
-                            <option value="">Energy</option>
-                            <option value="">Fat</option>
-                            <option value="">Carbohydrate</option>
-                            <option value="">Protein</option>
-                        </select>
+                            <option value="energy">Energy</option>
+                            <option value="fat">Fat</option>
+                            <option value="carbs">Carbohydrate</option>
+                            <option value="protein">Protein</option>
+                          </select>                          
                     </div>
 
-                    <select>
-                        <option value="">Category</option>
+                    <select id="foodCategorySelect">
+                        <option value="">All categories</option>
+                        <option value="Vegetables and Vegetable Products">Vegetables and Vegetable Products</option>
+                        <option value="Fruits and Fruit Juices">Fruits and Fruit Juices</option>
+                        <option value="Grains and Pasta">Grains and Pasta</option>
+                        <option value="Meat and Poultry">Meat and Poultry</option>
+                        <option value="Fish and Seafood">Fish and Seafood</option>
+                        <option value="Dairy and Egg Products">Dairy and Egg Products</option>
+                        <option value="Nuts and Seeds">Nuts and Seeds</option>
+                        <option value="Beverages">Beverages</option>
+                        <option value="Snacks and Sweets">Snacks and Sweets</option>
+                        <option value="Soups, Sauces, and Gravies">Soups, Sauces, and Gravies</option>
+                        <option value="Fats and Oils">Fats and Oils</option>
+                        <option value="Baby Foods">Baby Foods</option>
+                        <option value="Fast Foods">Fast Foods</option>
                     </select>
                 </section>
 
 
                 <section class="food-table">
-                    <div class="food-row">
+                    <!-- <div class="food-row">
                         <div class="food-info">
                             <p class="food-name">Ackee, canned, drained</p>
-                            <p class="food-source">McCance and Widdowson's</p>
+                            <p class="food-source">My Food</p>
                         </div>
                         <div class="nutrients">151 kcal<br><span>Energy</span></div>
                         <div class="nutrients">15 g<br><span>Fat</span></div>
@@ -78,13 +91,13 @@
                     <div class="food-row">
                         <div class="food-info">
                             <p class="food-name">Agar, dried, soaked and drained</p>
-                            <p class="food-source">McCance and Widdowson's</p>
+                            <p class="food-source">My Food</p>
                         </div>
                         <div class="nutrients">2 kcal<br><span>Energy</span></div>
                         <div class="nutrients">0 g<br><span>Fat</span></div>
                         <div class="nutrients">0 g<br><span>Carbohydrate</span></div>
                         <div class="nutrients">0 g<br><span>Protein</span></div>
-                    </div>
+                    </div> -->
                 </section>
 
                 <div class="create-food-btn">
@@ -93,14 +106,14 @@
                 </div>
 
                 <footer class="pagination pagination-foods">
-                    <button>«</button>
+                    <!-- <button>«</button>
                     <button class="active">1</button>
                     <button>2</button>
                     <button>3</button>
                     <button>4</button>
                     <button>5</button>
                     <button>…</button>
-                    <button>»</button>
+                    <button>»</button> -->
                 </footer>
 
             </div>
@@ -109,7 +122,7 @@
 
         <!-- ========== MODAL FOOD INFO ========== -->
         <div id="foodModal" class="modal-overlay">
-            <div class="modal-content"> 
+            <div class="modal-content">
 
                 <!-- Modal Header -->
                 <div class="modal-header">
@@ -719,10 +732,10 @@
                 </form>
             </div>
         </div>
-
-        
-
     </div>
+
+
+    <script src="/js/foods.js"></script>
 </body>
 
 

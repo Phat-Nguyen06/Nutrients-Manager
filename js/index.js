@@ -5,97 +5,74 @@ if (!currentUser) {
 }
 document.querySelector(".user-name").textContent = `Xin chào, ${currentUser.username}`;
 
-// ==== Dữ liệu mặc định (có thể lấy từ localStorage sau) ====
+let btnSignOut = document.querySelector(".signout-btn");
+btnSignOut.addEventListener("click", () => {
+  localStorage.removeItem("currentUser");
+  window.location.href = "/login.html";
+});
+
+// ==== Lấy tất cả công thức từ localStorage ====
 let recipes = JSON.parse(localStorage.getItem("recipes")) || [
   {
+    id: 1,
+    coverSrc: "/assets/images/img-avata-food/default-avata.png",
     name: "Turmeric Roasted Cauliflower Salad (lowfodmap)",
+    description: "Our roasted cauliflower salad with turmeric is low in calories and packed with punchy flavor.",
     author: "Joana Jardim",
-    category: "Community Recipes",
-    tags: ["Vegetarian dishes"],
+    totalTime: "00:40",
+    preparationTime: "00:40",
+    finalWeight: "978.8 grams",
+    portions: 4,
+    ingredients: [
+      "Cauliflower", "Turmeric", "Olive oil"
+    ],
+    cookingMethods: [
+      {
+        id: 1,
+        content: "STEP 1 Heat the oven to 200C/fan 180C/gas 6. Put the cauliflower in an ovenproof dish or tin."
+      }
+    ],
+    category: [
+      { id: 1, name: "vegetarian" },
+      { id: 2, name: "appetizer" }
+    ],
+    tags: ["Vegetarian dishes", "Low calorie"],
     likes: 37,
     energy: 143,
     fat: 6,
     carbs: 18,
-    protein: 5
+    protein: 5,
+    createdAt: new Date().toISOString()
   },
   {
+    id: 2,
+    coverSrc: "/assets/images/img-avata-food/default-avata.png",
     name: "Vegetable & Egg Scramble* (lowfodmap)",
+    description: "A hearty scramble for breakfast lovers, packed with veggies and flavor.",
     author: "Joana Jardim",
-    category: "Community Recipes",
+    totalTime: "00:30",
+    preparationTime: "00:15",
+    finalWeight: "550 grams",
+    portions: 2,
+    ingredients: ["Eggs", "Bell pepper", "Zucchini"],
+    cookingMethods: [
+      {
+        id: 1,
+        content: "STEP 1 Whisk eggs and cook with veggies on medium heat until set."
+      }
+    ],
+    category: [{ id: 3, name: "breakfast" }],
     tags: ["Lean & Green", "Low Added Sugar", "Diabetic Friendly", "HBP Friendly", "Vegetarian dishes"],
     likes: 33,
     energy: 87,
     fat: 4,
     carbs: 8,
-    protein: 5
-  },
-  {
-    name: "Green Beans With Tofu and Roasted Peanuts (lowfodmap)",
-    author: "Joana Jardim",
-    category: "Community Recipes",
-    tags: ["Vegetarian dishes"],
-    likes: 22,
-    energy: 99,
-    fat: 6,
-    carbs: 5,
-    protein: 6
-  },
-  {
-    name: "Berry Almond Smoothie (full fat milk)",
-    author: "Joana Jardim",
-    category: "Community Recipes",
-    tags: ["Breakfast and snacks", "Vegetarian dishes", "Desserts"],
-    likes: 13,
-    energy: 106,
-    fat: 6,
-    carbs: 5,
-    protein: 9
-  },
-  {
-    name: "High Protein Blueberry Cheesecake",
-    author: "Vasiliki Stavrou",
-    category: "Community Recipes",
-    tags: ["Desserts"],
-    likes: 11,
-    energy: 260,
-    fat: 17,
-    carbs: 23,
-    protein: 4
-  },
-  {
-    name: "Asian Chicken Almond Salad",
-    author: "Vasiliki Stavrou",
-    category: "Community Recipes",
-    tags: ["Chicken Dishes", "Salads", "Lean & Green"],
-    likes: 11,
-    energy: 72,
-    fat: 3,
-    carbs: 6,
-    protein: 7
-  },
-  {
-    name: "Spicy Sausage and Veggie Stir Fry",
-    author: "Vasiliki Stavrou",
-    category: "Community Recipes",
-    tags: ["Meat dishes", "Lean & Green"],
-    likes: 11,
-    energy: 73,
-    fat: 3,
-    carbs: 6,
-    protein: 5
-  },
-  {
-    name: "Berry Almond Smoothie",
-    author: "Vasiliki Stavrou",
-    category: "Community Recipes",
-    tags: ["Breakfast and snacks", "Vegetarian dishes", "Desserts"],
-    likes: 10,
-    energy: 84,
-    fat: 5,
-    carbs: 8,
-    protein: 5
+    protein: 5,
+    createdAt: new Date().toISOString()
   }
 ];
+
+localStorage.setItem("recipes", JSON.stringify(recipes));
 
 // ==== Biến điều khiển ====
 const recipeList = document.querySelector(".recipe-list");
@@ -113,33 +90,39 @@ function renderAllRecipes(recipeArr) {
 
   recipeArr.forEach(recipe => {
     textRecipeCard += `
-      <div class="recipe-card">
+    <div class="recipe-card">
+      <div class="card-left">
         <div class="card-badge">
-          <div class="badge">${recipe.category}</div>
+          <i class="fas fa-users"></i>
+          <span>${recipe.category}</span>
         </div>
-        <div class="card-body">
-          <div class="card-header">
-            <div>
-              <h2 class="recipe-title">${recipe.name}</h2>
-              <div class="card-meta">
-                <p class="author">${recipe.author}</p>
-                <div class="likes">
-                  <i class="far fa-heart"></i> <span>${recipe.likes || 0}</span>
-                </div>
-              </div>
-              <p class="tags">${recipe.tags?.join(", ") || "No tags"}</p>
-            </div>
+        <img class="card-img" src="${recipe.coverSrc || "/assets/images/img-avata-food/default-avata.png"}" alt="recipe image">
+      </div>
+  
+      <div class="card-right">
+        <div class="card-header">
+          <div>
+            <h2 class="recipe-title">${recipe.name}</h2>
+            <p class="author">${recipe.author}</p>
+            <p class="tags">${recipe.tags?.join(", ") || "No tags"}</p>
           </div>
-          <div class="nutrition-table">
-            <div class="nutrient">by<br><strong>100g</strong></div>
-            <div class="nutrient">Energy<br><strong>${recipe.energy || "?"} kcal</strong></div>
-            <div class="nutrient">Fat<br><strong>${recipe.fat || "?"} g</strong></div>
-            <div class="nutrient">Carbohydrate<br><strong>${recipe.carbs || "?"} g</strong></div>
-            <div class="nutrient">Protein<br><strong>${recipe.protein || "?"} g</strong></div>
+
+          <div class="likes" data-id="${recipe.id}">
+            <i class="${recipe.likedBy?.includes(currentUser.email) ? 'fas' : 'far'} fa-heart"></i>
+            <span>${recipe.likes || 0}</span>
           </div>
+        </div>
+  
+        <div class="nutrition-table">
+          <div class="nutrient">by<br><strong>100g</strong></div>
+          <div class="nutrient">Energy<br><strong>${recipe.energy || "?"} kcal</strong></div>
+          <div class="nutrient">Fat<br><strong>${recipe.fat || "?"} g</strong></div>
+          <div class="nutrient">Carbohydrate<br><strong>${recipe.carbs || "?"} g</strong></div>
+          <div class="nutrient">Protein<br><strong>${recipe.protein || "?"} g</strong></div>
         </div>
       </div>
-    `;
+    </div>
+  `;
   });
 
   recipeList.innerHTML = recipeArr.length > 0
@@ -185,7 +168,7 @@ function renderPagination(filteredRecipes) {
     if (isDisabled) btn.disabled = true;
 
     btn.addEventListener("click", () => {
-      if (!isDisabled) {
+      if (!isDisabled && page !== null) {
         currentPage = page;
         renderPaginatedRecipes();
       }
@@ -229,7 +212,7 @@ function renderPaginatedRecipes() {
   const filtered = filterRecipes();
   const totalPages = Math.ceil(filtered.length / itemsPerPage);
 
-  if (currentPage > totalPages) currentPage = totalPages;
+  if (currentPage > totalPages) currentPage = totalPages || 1;
 
   const start = (currentPage - 1) * itemsPerPage;
   const end = start + itemsPerPage;
@@ -239,17 +222,15 @@ function renderPaginatedRecipes() {
   renderPagination(filtered);
 }
 
-// ==== Gắn sự kiện tìm kiếm / lọc / sắp xếp ====
+// ==== Gắn sự kiện ====
 searchInput.addEventListener("input", () => {
   currentPage = 1;
   renderPaginatedRecipes();
 });
-
 sortSelect.addEventListener("change", () => {
   currentPage = 1;
   renderPaginatedRecipes();
 });
-
 categorySelect.addEventListener("change", () => {
   currentPage = 1;
   renderPaginatedRecipes();
@@ -257,3 +238,40 @@ categorySelect.addEventListener("change", () => {
 
 // ==== Lần đầu tải trang ====
 renderPaginatedRecipes();
+
+
+// ==== Xử lý thả tim (like) ====
+document.addEventListener("click", function (e) {
+  const heartIcon = e.target.closest(".likes i");
+
+  if (!heartIcon) return;
+
+  const card = heartIcon.closest(".recipe-card");
+  const recipeTitle = card.querySelector(".recipe-title").textContent.trim();
+
+  const recipe = recipes.find(r => r.name === recipeTitle);
+
+  if (!recipe) return;
+
+  // Khởi tạo mảng likedBy nếu chưa có
+  if (!recipe.likedBy) recipe.likedBy = [];
+
+  const isLiked = recipe.likedBy.includes(currentUser.email);
+
+  if (isLiked) {
+    // bỏ
+    recipe.likedBy = recipe.likedBy.filter(email => email !== currentUser.email);
+    if (recipe.likes > 0) {
+      recipe.likes--;
+    }
+  } else {
+    // thêm
+    recipe.likedBy.push(currentUser.email);
+    recipe.likes++;
+  }
+
+  localStorage.setItem("recipes", JSON.stringify(recipes));
+
+  renderPaginatedRecipes();
+});
+

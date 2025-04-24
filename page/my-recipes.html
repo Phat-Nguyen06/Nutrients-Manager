@@ -42,7 +42,7 @@
             <div class="recipes-controls">
                 <div class="recipes-header">
                     <h2>Recipes</h2>
-                    <i class="fas fa-plus"></i>
+                    <a href="/page/create-recipe.html"><i class="fas fa-plus"></i></a>
                 </div>
 
                 <p>Search, check and create new recipes</p>
@@ -52,7 +52,7 @@
 
                     <div class="sort-group">
                         <i class="fas fa-sort-amount-up-alt"></i>
-                        <select>
+                        <select id="sortSelect">
                             <option value="" disabled selected hidden>Sort by nutrient</option>
                             <option value="Energy">Energy</option>
                             <option value="Fat">Fat</option>
@@ -61,7 +61,7 @@
                         </select>
                     </div>
 
-                    <select>
+                    <select id="categorySelect">
                         <option value="" disabled selected hidden>All categories</option>
                         <option value="desserts">Desserts</option>
                         <option value="breakfast">Breakfast and snacks</option>
@@ -85,7 +85,7 @@
                 <!-- Recipe card list -->
                 <section class="recipe-list">
                     <!-- Sample card -->
-                    <div class="recipe-card">
+                    <!-- <div class="recipe-card">
 
                         <div class="card-badge">
                             <div class="badge">Community Recipes</div>
@@ -114,23 +114,18 @@
                             </div>
                         </div>
 
-                    </div>
+                    </div> -->
                     <!-- ... nhiều recipe-card khác -->
                 </section>
 
                 <!-- Pagination -->
-                <footer class="pagination pagination-recipes">
-                    <button>«</button>
-                    <button class="active">1</button>
-                    <button>2</button>
-                    <button>3</button>
-                    <button>»</button>
-                </footer>
-
+                <footer class="pagination pagination-recipes" id="pagination">
             </div>
         </main>
 
     </div>
+
+    <script src="/js/my-recipes.js"></script>
 </body>
 
 </html>
