@@ -58,16 +58,13 @@ if (!hasRecipe) {
 // ==== Lọc ra chỉ recipe của currentUser ====
 let userRecipes = allRecipes.filter(r => r.userEmail === currentUser.email || (Array.isArray(r.likedBy) && r.likedBy.includes(currentUser.email)));
 
-// userRecipes.forEach(recipe => {
-//   if(recipe.likedBy.includes())
-// })
-
 // ==== Biến điều khiển ====
 const recipeList = document.querySelector(".recipe-list");
 const paginationContainer = document.getElementById("pagination");
 const searchInput = document.querySelector('.search-bar input[type="text"]');
 const sortSelect = document.getElementById('sortSelect');
 const categorySelect = document.getElementById('categorySelect');
+
 
 let currentPage = 1;
 const itemsPerPage = 4;

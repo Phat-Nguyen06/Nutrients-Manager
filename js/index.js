@@ -240,38 +240,57 @@ categorySelect.addEventListener("change", () => {
 renderPaginatedRecipes();
 
 
-// ==== Xử lý thả tim (like) ====
+// ==== Xử lý thả tim (like) kèm hiệu ứng +1 bay lên ====
 document.addEventListener("click", function (e) {
   const heartIcon = e.target.closest(".likes i");
-
   if (!heartIcon) return;
 
   const card = heartIcon.closest(".recipe-card");
   const recipeTitle = card.querySelector(".recipe-title").textContent.trim();
 
   const recipe = recipes.find(r => r.name === recipeTitle);
-
   if (!recipe) return;
 
-  // Khởi tạo mảng likedBy nếu chưa có
   if (!recipe.likedBy) recipe.likedBy = [];
 
   const isLiked = recipe.likedBy.includes(currentUser.email);
 
+  const likesDiv = heartIcon.closest(".likes");
+
   if (isLiked) {
-    // bỏ
     recipe.likedBy = recipe.likedBy.filter(email => email !== currentUser.email);
-    if (recipe.likes > 0) {
-      recipe.likes--;
-    }
+    if (recipe.likes > 0) recipe.likes--;
+    renderPaginatedRecipes();
+    localStorage.setItem("recipes", JSON.stringify(recipes));
+
+    Toastify({
+      text: "Đã bỏ thả tim 💔",
+      duration: 2000,
+      gravity: "top",
+      position: "center",
+      backgroundColor: "#FFCDD2",
+      style: {
+        borderRadius: "8px",
+      },
+    }).showToast();
   } else {
-    // thêm
     recipe.likedBy.push(currentUser.email);
     recipe.likes++;
+
+    Toastify({
+      text: "Bạn đã thả tim 💖",
+      duration: 2000,
+      gravity: "top",
+      position: "center",
+      backgroundColor: "#FFCDD2",
+      style: {
+        borderRadius: "8px",
+      },
+    }).showToast();
   }
-
+  
   localStorage.setItem("recipes", JSON.stringify(recipes));
-
   renderPaginatedRecipes();
 });
+
 

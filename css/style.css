@@ -212,7 +212,7 @@ a {
     flex: 0.6;
     display: flex;
     align-items: center;
-    padding: 0 10px;
+    /* padding: 0 10px; */
     border: 1px solid #ccc;
     border-radius: 6px;
     background: white;
@@ -223,9 +223,20 @@ a {
 }
 
 .sort-group i {
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px #ccc solid;
+    padding: 0 10px;
     color: #555;
     font-size: 16px;
+    cursor: pointer;
 }
+
+.sort-group i:hover {
+    color: #CC5965;
+  }
 
 .sort-group select {
     border: none;
@@ -260,6 +271,13 @@ a {
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.06);
     width: 100%;
     min-height: 218px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.recipe-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
 /* Tỷ lệ chia 37.4% : 62.6% tương ứng 218 : 364.5 */
@@ -284,7 +302,7 @@ a {
 .card-badge {
     position: absolute;
     top: 20px;
-    left: 20px;
+    left: 10px;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -559,6 +577,14 @@ a {
     background: #fff;
 }
 
+.field-block #field-select {
+    flex: 1;
+    border: none;
+    padding: 10px;
+    font-size: 14px;
+    background: #fff;
+}
+
 .unit-label {
     padding: 10px 12px;
     background: #e9e9e9;
@@ -737,4 +763,11 @@ a {
 .page-btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+}
+
+.error-message {
+    font-size: 13px;
+    color: red;
+    margin-top: 4px;
+    display: block;
 }
