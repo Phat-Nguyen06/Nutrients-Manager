@@ -152,8 +152,25 @@
                         <!-- Category -->
                         <div class="field-block">
                             <div class="field-label">Category</div>
-                            <input type="text" class="field-input" id="food-form-category" value="">
+                            <select class="field-input" id="food-form-category">
+                                <option value="" disabled hidden>Choose a category</option>
+                                <option value="Vegetables and Vegetable Products">Vegetables and Vegetable Products
+                                </option>
+                                <option value="Fruits and Fruit Juices">Fruits and Fruit Juices</option>
+                                <option value="Grains and Pasta">Grains and Pasta</option>
+                                <option value="Meat and Poultry">Meat and Poultry</option>
+                                <option value="Fish and Seafood">Fish and Seafood</option>
+                                <option value="Dairy and Egg Products">Dairy and Egg Products</option>
+                                <option value="Nuts and Seeds">Nuts and Seeds</option>
+                                <option value="Beverages">Beverages</option>
+                                <option value="Snacks and Sweets">Snacks and Sweets</option>
+                                <option value="Soups, Sauces, and Gravies">Soups, Sauces, and Gravies</option>
+                                <option value="Fats and Oils">Fats and Oils</option>
+                                <option value="Baby Foods">Baby Foods</option>
+                                <option value="Fast Foods">Fast Foods</option>
+                            </select>
                         </div>
+
                         <!-- Quantity -->
                         <div class="field-block with-unit">
                             <div class="field-label">Quantity</div>
@@ -428,8 +445,13 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn-cancel">Cancel</button>
-                        <button type="submit" class="btn-save">Save and close</button>
+                        <div class="modal-footer-left">
+                            <i class="fa-solid fa-trash" id="btn-delete"></i>
+                        </div>
+                        <div class="modal-footer-right">
+                            <button type="button" class="btn-cancel">Cancel</button>
+                            <button type="submit" class="btn-save">Save and close</button>
+                        </div>
                     </div>
                 </form>
             </div>

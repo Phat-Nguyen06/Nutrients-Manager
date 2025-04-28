@@ -18,6 +18,7 @@ let foods = JSON.parse(localStorage.getItem("foods")) || [
     source: "Minh Cuong Tran",
     category: "Protein Foods",
     quantity: "1 egg (50g)",
+    userEmail: "nutrium@gmail.com",
     macronutrients: {
       energy: 78,
       fat: 5,
@@ -31,6 +32,7 @@ let foods = JSON.parse(localStorage.getItem("foods")) || [
     source: "Minh Cuong Tran",
     category: "Grains",
     quantity: "1 cup (195g)",
+    userEmail: "nutrium@gmail.com",
     macronutrients: {
       energy: 216,
       fat: 1.8,
@@ -44,6 +46,7 @@ let foods = JSON.parse(localStorage.getItem("foods")) || [
     source: "Minh Cuong Tran",
     category: "Protein Foods",
     quantity: "100g",
+    userEmail: "nutrium@gmail.com",
     macronutrients: {
       energy: 165,
       fat: 3.6,
@@ -57,6 +60,7 @@ let foods = JSON.parse(localStorage.getItem("foods")) || [
     source: "Minh Cuong Tran",
     category: "Fruits",
     quantity: "1 medium (182g)",
+    userEmail: "nutrium@gmail.com",
     macronutrients: {
       energy: 95,
       fat: 0.3,
@@ -70,6 +74,7 @@ let foods = JSON.parse(localStorage.getItem("foods")) || [
     source: "Minh Cuong Tran",
     category: "Vegetables and Vegetable Products",
     quantity: "1 cup (156g)",
+    userEmail: "nutrium@gmail.com",
     macronutrients: {
       energy: 55,
       fat: 0.6,
@@ -83,6 +88,7 @@ let foods = JSON.parse(localStorage.getItem("foods")) || [
     source: "Minh Cuong Tran",
     category: "Fish and Seafood",
     quantity: "100g",
+    userEmail: "nutrium@gmail.com",
     macronutrients: {
       energy: 208,
       fat: 13,
@@ -96,6 +102,7 @@ let foods = JSON.parse(localStorage.getItem("foods")) || [
     source: "Minh Cuong Tran",
     category: "Grains",
     quantity: "1 slice (28g)",
+    userEmail: "nutrium@gmail.com",
     macronutrients: {
       energy: 69,
       fat: 1.1,
@@ -109,6 +116,7 @@ let foods = JSON.parse(localStorage.getItem("foods")) || [
     source: "Minh Cuong Tran",
     category: "Fruits",
     quantity: "1 medium (118g)",
+    userEmail: "nutrium@gmail.com",
     macronutrients: {
       energy: 105,
       fat: 0.3,
@@ -122,6 +130,7 @@ let foods = JSON.parse(localStorage.getItem("foods")) || [
     source: "Minh Cuong Tran",
     category: "Fruits",
     quantity: "1 fruit (201g)",
+    userEmail: "nutrium@gmail.com",
     macronutrients: {
       energy: 322,
       fat: 29,
@@ -135,6 +144,7 @@ let foods = JSON.parse(localStorage.getItem("foods")) || [
     source: "Minh Cuong Tran",
     category: "Dairy and Eggs",
     quantity: "1 cup (245g)",
+    userEmail: "nutrium@gmail.com",
     macronutrients: {
       energy: 130,
       fat: 0.4,
@@ -289,13 +299,14 @@ closeModalBtn.addEventListener("click", () => {
   modal.style.display = "none";
 });
 
+// Thêm
 let foodForm = document.querySelector("#createFoodModal .food-form");
 foodForm.addEventListener("submit", function (e) {
   e.preventDefault();
 
   const name = foodForm.querySelector(".field-block:nth-child(1) input").value.trim();
   const source = foodForm.querySelector(".field-block:nth-child(2) input").value.trim();
-  const category = foodForm.querySelector(".field-block:nth-child(3) input").value.trim();
+  const category = document.getElementById("field-select").value;
   const quantity = foodForm.querySelector(".field-block:nth-child(4) input").value.trim();
 
   if (!name || !source || !category || !quantity) {
@@ -358,6 +369,7 @@ foodForm.addEventListener("submit", function (e) {
     quantity,
     macronutrients,
     micronutrients,
+    userEmail: `${currentUser.email}`,
     createdAt: new Date().toISOString()
   };
 
@@ -502,18 +514,78 @@ foodInfoForm.addEventListener("submit", function (e) {
   });
   food.micronutrients = micros;
 
-  localStorage.setItem("foods", JSON.stringify(foods));
+  if (food.userEmail == currentUser.email) {
+    localStorage.setItem("foods", JSON.stringify(foods));
 
-  document.getElementById("foodModal").style.display = "none";
-  renderPaginatedFoods();
+    document.getElementById("foodModal").style.display = "none";
+    renderPaginatedFoods();
 
-  Toastify({
-    text: "Cập nhật món ăn thành công!",
-    duration: 3000,
-    style: { background: "#4caf50" },
-  }).showToast();
+    Toastify({
+      text: "Cập nhật món ăn thành công!",
+      duration: 3000,
+      style: { background: "#4caf50" },
+    }).showToast();
+  }
+  else {
+    Toastify({
+      text: "❗Bạn không có quyền chỉnh sửa món ăn này.",
+      duration: 3500,
+      gravity: "top",
+      position: "center",
+      stopOnFocus: true,
+      style: {
+        background: "#fff3cd",
+        color: "#a94442",
+        borderRadius: "6px",
+        boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+        fontWeight: "500"
+      },
+      offset: {
+        y: 60
+      }
+    }).showToast();
+  }
 });
 
+document.getElementById("btn-delete").addEventListener("click", () => {
+  const food = foods.find(f => f.id === currentEditIndex);
+  if (!food) return;
 
-// ===== Khởi động =====
+  if (food.userEmail == currentUser.email) {
+    let checkDelete = confirm("Bạn có chắc chắn muốn xóa món ăn này không?");
+    if (checkDelete) {
+      foods = foods.filter(f => f.id !== currentEditIndex);
+      localStorage.setItem("foods", JSON.stringify(foods));
+      Toastify({
+        text: "🗑️ Món ăn đã được xóa!",
+        duration: 3000,
+        style: { background: "#e53935" }
+      }).showToast();
+      renderPaginatedFoods();
+    }
+    else {
+      return;
+    }
+  }
+  else {
+    Toastify({
+      text: "❗Bạn không có quyền xóa món ăn này.",
+      duration: 3500,
+      gravity: "top",
+      position: "center",
+      stopOnFocus: true,
+      style: {
+        background: "#fff3cd",
+        color: "#a94442",
+        borderRadius: "6px",
+        boxShadow: "0 2px 6px rgba(0,0,0,0.1)",
+        fontWeight: "500"
+      },
+      offset: {
+        y: 50
+      }
+    }).showToast();
+  }
+});
+
 renderPaginatedFoods();

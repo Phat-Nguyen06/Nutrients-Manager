@@ -16,7 +16,7 @@
 
 /* Recipe Summary Card */
 .recipe-summary {
-    width: 220px;
+    width: calc(30% - 20px);
 }
 
 .summary-card {
@@ -37,6 +37,12 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 10px;
+}
+
+.recipe-meta .likes {
+    padding: 4px 8px;
+    border: 1px #ccc solid;
 }
 
 
@@ -79,6 +85,7 @@
 
 /* Basic Info */
 .basic-info-box {
+    width: calc(70% - 20px);
     flex: 1;
     background: #fff;
     padding: 20px;

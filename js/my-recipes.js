@@ -1,152 +1,134 @@
-
-// ==== Kiểm tra đăng nhập ====
 const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 if (!currentUser) {
   window.location.href = "/login.html";
 }
 document.querySelector(".user-name").textContent = `Xin chào, ${currentUser.username}`;
 
-let btnSignOut = document.querySelector(".signout-btn");
-btnSignOut.addEventListener("click", () => {
-  localStorage.removeItem("currentUser");
-  window.location.href = "/login.html";
-});
+let recipes = JSON.parse(localStorage.getItem("recipes")) || [];
 
-// ==== Lấy mảng tổng recipes và kiểm tra xem user có công thức chưa ====
-let allRecipes = JSON.parse(localStorage.getItem("recipes")) || [];
-
-const hasRecipe = allRecipes.some(r => r.userEmail === currentUser.email);
-if (!hasRecipe) {
-  const sampleRecipes = [
-    {
-      id: Date.now(),
-      userEmail: currentUser.email,
-      author: currentUser.username,
-      name: "Avocado Egg Toast",
-      category: "Breakfast and snacks",
-      description: "A simple toast with mashed avocado and soft-boiled egg.",
-      image: "",
-      likes: 12,
-      tags: ["Vegetarian dishes", "Healthy"],
-      energy: 220,
-      fat: 14,
-      carbs: 18,
-      protein: 9,
-      createdAt: new Date().toISOString()
-    },
-    {
-      id: Date.now() + 1,
-      userEmail: currentUser.email,
-      author: currentUser.username,
-      name: "Quinoa Chicken Bowl",
-      category: "Lean & Green",
-      description: "A protein-packed bowl with quinoa, chicken and veggies.",
-      image: "",
-      likes: 9,
-      tags: ["High Protein", "Gluten Free"],
-      energy: 310,
-      fat: 10,
-      carbs: 25,
-      protein: 28,
-      createdAt: new Date().toISOString()
-    }
-  ];
-  allRecipes.push(...sampleRecipes);
-  localStorage.setItem("recipes", JSON.stringify(allRecipes));
-}
-
-// ==== Lọc ra chỉ recipe của currentUser ====
-let userRecipes = allRecipes.filter(r => r.userEmail === currentUser.email || (Array.isArray(r.likedBy) && r.likedBy.includes(currentUser.email)));
-
-// ==== Biến điều khiển ====
 const recipeList = document.querySelector(".recipe-list");
 const paginationContainer = document.getElementById("pagination");
-const searchInput = document.querySelector('.search-bar input[type="text"]');
-const sortSelect = document.getElementById('sortSelect');
-const categorySelect = document.getElementById('categorySelect');
-
-
 let currentPage = 1;
 const itemsPerPage = 4;
 
-// ==== Render ====
-function renderAllRecipes(recipeArr) {
-  let html = "";
-  recipeArr.forEach(recipe => {
-    html += `
-    <div class="recipe-card">
-      <div class="card-left">
-        <div class="card-badge">
-          <i class="fas fa-users"></i>
-          <span>${recipe.category}</span>
-        </div>
-        <img class="card-img" src="${recipe.coverSrc || "/assets/images/img-avata-food/default-avata.png"}" alt="recipe image">
-      </div>
-  
-      <div class="card-right">
-        <div class="card-header">
-          <div>
-            <h2 class="recipe-title">${recipe.name}</h2>
-            <p class="author">${recipe.author}</p>
-            <p class="tags">${recipe.tags?.join(", ") || "No tags"}</p>
-          </div>
-          <div class="likes" data-id="${recipe.id}">
-            <i class="${recipe.likedBy?.includes(currentUser.email) ? 'fas' : 'far'} fa-heart"></i>
-            <span>${recipe.likes || 0}</span>
-          </div>
-        </div>
-  
-        <div class="nutrition-table">
-          <div class="nutrient">by<br><strong>100g</strong></div>
-          <div class="nutrient">Energy<br><strong>${recipe.energy || "?"} kcal</strong></div>
-          <div class="nutrient">Fat<br><strong>${recipe.fat || "?"} g</strong></div>
-          <div class="nutrient">Carbohydrate<br><strong>${recipe.carbs || "?"} g</strong></div>
-          <div class="nutrient">Protein<br><strong>${recipe.protein || "?"} g</strong></div>
-        </div>
-      </div>
-    </div>
-  `;
-  });
+const searchInput = document.querySelector('.search-bar input[type="text"]');
+const sortSelect = document.getElementById('sortSelect');
+const categorySelect = document.getElementById('categorySelect');
+const sortIcon = document.querySelector(".sort-group i");
 
-  recipeList.innerHTML = recipeArr.length ? html : "<p>No recipes found.</p>";
+let currentSortKey = "";
+let isSortAsc = false;
+
+// ==== Tính tổng dinh dưỡng từ ingredients ==== 
+function getRecipeTotal(recipe, nutrient) {
+  if (!recipe.ingredients || !Array.isArray(recipe.ingredients)) return "?";
+
+  let total = 0;
+  recipe.ingredients.forEach(ingredient => {
+    if (ingredient.food && ingredient.food.macronutrients && ingredient.food.macronutrients[nutrient] != null) {
+      total += parseFloat(ingredient.food.macronutrients[nutrient]) || 0;
+    }
+  });
+  return Math.round(total);
 }
 
-// ==== Filter & Paging ====
-function getFilteredRecipes() {
+// ==== Render công thức ==== 
+function renderAllRecipes(recipeArr) {
+  recipeList.innerHTML = recipeArr.length > 0
+    ? recipeArr.map(recipe => `
+      <div class="recipe-card">
+        <div class="card-left">
+          <div class="card-badge">
+            <i class="fas fa-users"></i>
+            <span>Community Recipes</span>
+          </div>
+          <img class="card-img" src="${recipe.coverSrc || "/assets/images/img-avata-food/default-avata.png"}" alt="recipe image">
+        </div>
+
+        <div class="card-right">
+          <div class="card-header">
+            <div>
+              <h2 class="recipe-title">${recipe.name}</h2>
+              <p class="author">${recipe.author}</p>
+              <p class="ingredients">${recipe.category?.map(c => c.name).join(", ") || "No category"}</p>
+            </div>
+            <div class="likes" data-id="${recipe.id}">
+              <i class="${recipe.likedBy?.includes(currentUser.email) ? 'fas' : 'far'} fa-heart"></i>
+              <span>${recipe.likes || 0}</span>
+            </div>
+          </div>
+
+          <div class="nutrition-table">
+            <div class="nutrient">by<br><strong>100g</strong></div>
+            <div class="nutrient">Energy<br><strong>${getRecipeTotal(recipe, 'energy')} kcal</strong></div>
+            <div class="nutrient">Fat<br><strong>${getRecipeTotal(recipe, 'fat')} g</strong></div>
+            <div class="nutrient">Carbohydrate<br><strong>${getRecipeTotal(recipe, 'carbohydrate')} g</strong></div>
+            <div class="nutrient">Protein<br><strong>${getRecipeTotal(recipe, 'protein')} g</strong></div>
+          </div>
+        </div>
+      </div>
+    `).join("")
+    : "<p>No recipes found.</p>";
+}
+
+let viewingMode = "all"; // "all", "favorites", "myrecipes"
+
+// Khi click nút "Favorites"
+document.querySelector(".favorites-toggle").addEventListener("click", () => {
+  viewingMode = "favorites";
+  currentPage = 1;
+  renderPaginatedRecipes();
+});
+
+// Khi click nút "My Recipes"
+document.querySelector(".my-recipes-btn").addEventListener("click", () => {
+  viewingMode = "myrecipes";
+  currentPage = 1;
+  renderPaginatedRecipes();
+});
+
+// All
+document.querySelector(".all-recipes-btn").addEventListener("click", () => {
+  viewingMode = "all";
+  currentPage = 1;
+  renderPaginatedRecipes();
+});
+
+// ==== Lọc và phân trang ==== 
+function filterRecipes(recipesList) {
   const keyword = searchInput.value.toLowerCase().trim();
   const selectedCategory = categorySelect.value;
-  const selectedSort = sortSelect.value;
 
-  let filtered = userRecipes.filter(recipe => {
+  let filtered = recipesList.filter(recipe => {
     const nameMatch = recipe.name.toLowerCase().includes(keyword);
-    const tagMatch = recipe.tags.join(" ").toLowerCase().includes(keyword);
-    const matchKeyword = nameMatch || tagMatch;
+    const ingredientsMatch = recipe.ingredients?.some(ing => ing.food?.name.toLowerCase().includes(keyword));
+    const matchKeyword = nameMatch || ingredientsMatch;
 
-    const matchCategory = !selectedCategory || recipe.tags.includes(selectedCategory);
+    const matchCategory = !selectedCategory || recipe.category?.some(c => c.name === selectedCategory);
+
+    // Áp dụng lọc theo chế độ viewingMode
+    if (viewingMode === "favorites" && (!recipe.likedBy || !recipe.likedBy.includes(currentUser.email))) {
+      return false;
+    }
+    if (viewingMode === "myrecipes" && recipe.userEmail !== currentUser.email) {
+      return false;
+    }
 
     return matchKeyword && matchCategory;
   });
 
-  if (selectedSort) {
-    filtered.sort((a, b) => (b[selectedSort.toLowerCase()] || 0) - (a[selectedSort.toLowerCase()] || 0));
+  if (currentSortKey) {
+    filtered.sort((a, b) => {
+      const aVal = getRecipeTotal(a, currentSortKey.toLowerCase());
+      const bVal = getRecipeTotal(b, currentSortKey.toLowerCase());
+      return isSortAsc ? aVal - bVal : bVal - aVal;
+    });
   }
 
   return filtered;
 }
 
-function renderPaginatedRecipes() {
-  const filtered = getFilteredRecipes();
-  const totalPages = Math.ceil(filtered.length / itemsPerPage);
-  if (currentPage > totalPages) currentPage = totalPages || 1;
-
-  const start = (currentPage - 1) * itemsPerPage;
-  const end = start + itemsPerPage;
-  const recipesToShow = filtered.slice(start, end);
-
-  renderAllRecipes(recipesToShow);
-  renderPagination(filtered);
-}
-
+// ==== Phân trang ==== 
 function renderPagination(filteredRecipes) {
   paginationContainer.innerHTML = "";
   const totalPages = Math.ceil(filteredRecipes.length / itemsPerPage);
@@ -168,78 +150,140 @@ function renderPagination(filteredRecipes) {
     return btn;
   };
 
-  paginationContainer.appendChild(
-    createBtn("«", currentPage - 1, false, currentPage === 1)
-  );
-
+  paginationContainer.appendChild(createBtn("«", currentPage - 1, false, currentPage === 1));
   paginationContainer.appendChild(createBtn("1", 1, currentPage === 1));
 
-  if (currentPage > 4) paginationContainer.appendChild(createBtn("...", null, false, true));
+  if (currentPage > 4) {
+    paginationContainer.appendChild(createBtn("...", null, false, true));
+  }
 
-  const start = Math.max(2, currentPage - 1);
-  const end = Math.min(totalPages - 1, currentPage + 1);
+  let start = Math.max(2, currentPage - 1);
+  let end = Math.min(totalPages - 1, currentPage + 1);
+
   for (let i = start; i <= end; i++) {
     paginationContainer.appendChild(createBtn(i, i, currentPage === i));
   }
 
-  if (currentPage < totalPages - 3) paginationContainer.appendChild(createBtn("...", null, false, true));
+  if (currentPage < totalPages - 3) {
+    paginationContainer.appendChild(createBtn("...", null, false, true));
+  }
 
   if (totalPages > 1) {
     paginationContainer.appendChild(createBtn(totalPages, totalPages, currentPage === totalPages));
   }
 
-  paginationContainer.appendChild(
-    createBtn("»", currentPage + 1, false, currentPage === totalPages)
+  paginationContainer.appendChild(createBtn("»", currentPage + 1, false, currentPage === totalPages));
+}
+
+function getUserRecipes() {
+  return recipes.filter(recipe =>
+    recipe.userEmail === currentUser.email ||
+    (recipe.likedBy && recipe.likedBy.includes(currentUser.email))
   );
 }
 
-// ==== Event Listeners ====
+
+// ==== Render Trang hiện tại ==== 
+function renderPaginatedRecipes() {
+  const userRecipes = getUserRecipes();
+  const filtered = filterRecipes(userRecipes);
+  const totalPages = Math.ceil(filtered.length / itemsPerPage);
+
+  if (currentPage > totalPages) currentPage = totalPages || 1;
+
+  const start = (currentPage - 1) * itemsPerPage;
+  const end = start + itemsPerPage;
+
+  renderAllRecipes(filtered.slice(start, end));
+  renderPagination(filtered);
+  updateFavoriteCount();
+}
+
+// ==== Các sự kiện lọc, tìm kiếm, sort ==== 
 searchInput.addEventListener("input", () => {
   currentPage = 1;
   renderPaginatedRecipes();
 });
+
 sortSelect.addEventListener("change", () => {
+  currentSortKey = sortSelect.value;
   currentPage = 1;
   renderPaginatedRecipes();
 });
+
 categorySelect.addEventListener("change", () => {
   currentPage = 1;
   renderPaginatedRecipes();
 });
 
-renderPaginatedRecipes();
+sortIcon.addEventListener("click", () => {
+  if (!currentSortKey) return;
+  isSortAsc = !isSortAsc;
+  renderPaginatedRecipes();
+});
 
-
+// ==== Like công thức ==== 
 document.addEventListener("click", function (e) {
   const heartIcon = e.target.closest(".likes i");
-
   if (!heartIcon) return;
 
   const card = heartIcon.closest(".recipe-card");
   const recipeTitle = card.querySelector(".recipe-title").textContent.trim();
 
-  const recipe = allRecipes.find(r => r.name === recipeTitle);
-
+  const recipe = recipes.find(r => r.name === recipeTitle);
   if (!recipe) return;
 
-  // Khởi tạo mảng likedBy nếu chưa có
   if (!recipe.likedBy) recipe.likedBy = [];
 
   const isLiked = recipe.likedBy.includes(currentUser.email);
 
   if (isLiked) {
-    // bỏ
     recipe.likedBy = recipe.likedBy.filter(email => email !== currentUser.email);
-    if (recipe.likes > 0) {
-      recipe.likes--;
-    }
+    if (recipe.likes > 0) recipe.likes--;
+    updateFavoriteCount();
+    Toastify({
+      text: "💔 Bạn đã hủy thả tim!",
+      duration: 3000,
+      gravity: "top",
+      position: "center",
+      style: {
+        background: "#ffe0e0",
+        color: "#c62828",
+        borderRadius: "8px",
+        fontWeight: "bold",
+      },
+    }).showToast();
+
   } else {
-    // thêm
     recipe.likedBy.push(currentUser.email);
     recipe.likes++;
+    updateFavoriteCount();
+    Toastify({
+      text: "💔 Bạn đã hủy thả tim!",
+      duration: 3000,
+      gravity: "top",
+      position: "center",
+      style: {
+        background: "#ffe0e0",
+        color: "#c62828",
+        borderRadius: "8px",
+        fontWeight: "bold",
+      },
+    }).showToast();
   }
 
-  localStorage.setItem("recipes", JSON.stringify(allRecipes));
-
+  localStorage.setItem("recipes", JSON.stringify(recipes));
   renderPaginatedRecipes();
 });
+
+function updateFavoriteCount() {
+  const favoriteCount = document.getElementById("favoriteCount");
+  const recipes = JSON.parse(localStorage.getItem("recipes")) || [];
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+
+  const liked = recipes.filter(recipe => Array.isArray(recipe.likedBy) && recipe.likedBy.includes(currentUser.email));
+  favoriteCount.textContent = liked.length;
+}
+
+// ==== Khởi động lần đầu ==== 
+renderPaginatedRecipes();
