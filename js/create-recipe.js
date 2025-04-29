@@ -182,6 +182,10 @@ function renderSelectedIngredients() {
             <p>1 portion of ${ingredient.food.name}</p>
             <button class="btn-trash" onclick="deleteIngredients(${ingredient.food.id})"><i class="fas fa-trash"></i></button>
           </div>
+          <div class="add-equivalent">
+                <i class="fas fa-plus"></i>
+            <span>Add new food equivalent</span>
+            </div>
         `).join("");
 }
 

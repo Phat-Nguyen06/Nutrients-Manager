@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Recipe Detail</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/recipe-detail.css" />
 </head>
@@ -18,8 +19,8 @@
             <nav>
                 <ul>
                     <li><a href="/index.html"><i class="fas fa-home"></i> Homepage</a></li>
-                    <li><a href=""><i class="fas fa-apple-alt"></i> Foods</a></li>
-                    <li><a href="index.html" class="active"><i class="fas fa-file-alt"></i> Recipes</a></li>
+                    <li><a href="/page/foods.html"><i class="fas fa-apple-alt"></i> Foods</a></li>
+                    <li><a href="/page/my-recipes.html" class="active"><i class="fas fa-file-alt"></i> Recipes</a></li>
                 </ul>
             </nav>
             <button class="signout-btn">Sign out</button>
@@ -43,23 +44,55 @@
                 <div class="detail-header">
                     <!-- Card Summary -->
                     <div class="recipe-summary">
-                        <!-- Khối hiển thị thông tin badge + likes -->
                         <div class="summary-card">
-                            <div class="recipe-meta">
-                                <div class="badge">Community Recipes</div>
-                                <div class="likes">
-                                    <i class="far fa-heart"></i> <span>37</span>
+                            <!-- Cột 1: Badge + Likes -->
+                            <div class="summary-info">
+                                <div class="badge">
+                                    <i class="fas fa-users"></i>
+                                    <span>Community Recipes</span>
+                                </div>
+                                <div class="likes-summary">
+                                    <i class="far fa-heart"></i>
+                                    <span>35</span>
                                 </div>
                             </div>
-                            <p class="tags">Vegetarian dishes</p>
+
+                            <!-- Cột 2: Hình ảnh -->
+                            <div class="summary-image">
+                                <img src="/assets/images/img-avata-food/default-avata.png" alt="Recipe Image">
+                            </div>
+
+                            <!-- Cột 3: Các Tags -->
+                            <div class="summary-tags">
+                                <span class="tag"><img src="/assets/images/img-icon/Icon (1).png" alt="">Lean &
+                                    Green</span>
+                                <span class="tag"><img src="/assets/images/img-icon/Icon (1).png" alt="">Low Added
+                                    Sugar</span>
+                                <span class="tag"><img src="/assets/images/img-icon/Icon (1).png" alt="">Diabetic
+                                    Friendly</span>
+                                <span class="tag"><img src="/assets/images/img-icon/Icon (1).png" alt="">HBP
+                                    Friendly</span>
+                                <span class="tag"><img src="/assets/images/img-icon/Icon (1).png" alt="">Vegetarian
+                                    dishes</span>
+                                <span class="tag"><img src="/assets/images/img-icon/Icon (1).png" alt="">Low
+                                    Sodium</span>
+                                <span class="tag"><img src="/assets/images/img-icon/Icon (1).png" alt="">Healthy
+                                    Immunity</span>
+                                <span class="tag"><img src="/assets/images/img-icon/Icon (1).png"
+                                        alt="">Dairy-Free</span>
+                                <span class="tag"><img src="/assets/images/img-icon/Icon (1).png" alt="">Soy-Free</span>
+                                <span class="tag"><img src="/assets/images/img-icon/Icon (1).png" alt="">Heart
+                                    Healthy</span>
+                                <span class="tag"><img src="/assets/images/img-icon/Icon (1).png" alt="">Nut-Free</span>
+                            </div>
                         </div>
 
-                        <!-- Khối Add to favourite -->
                         <div class="summary-action">
-                            <button class="btn-fav"><i class="fas fa-heart"></i> Add to favourite</button>
+                            <button class="btn-fav">
+                                <i class="fas fa-heart"></i> Add to favourite
+                            </button>
                         </div>
                     </div>
-
 
                     <!-- Basic Info -->
                     <div class="basic-info-box">
@@ -162,39 +195,48 @@
 
                     <!-- Bên phải: Global + Macro Pie + Micro Table -->
                     <div class="creation-right">
-
-                        <!-- Global analysis -->
-                        <div class="global-analysis-box">
-                            <h4>Global analysis per portion</h4>
-                            <p class="section-subtitle">Energy, macronutrients and fiber distribution</p>
-                            <p><strong>Energy:</strong> 351 kcal</p>
-                            <ul class="macro-values">
-                                <li><span>16g</span> Fat</li>
-                                <li><span>45g</span> Carbohydrate</li>
-                                <li><span>12g</span> Protein</li>
-                                <li><span>6g</span> Fiber</li>
-                            </ul>
+                        <!-- Global Analysis -->
+                        <div class="global-analysis">
+                            <h3>Global analysis</h3>
+                            <p>Energy, macronutrients and fiber distribution</p>
+                            <div class="energy-summary">
+                                <div class="circle-item">
+                                    <div class="circle circle-fat"><span id="fatValue">0g</span></div>
+                                    <p>Fat</p>
+                                </div>
+                                <div class="circle-item">
+                                    <div class="circle circle-carb"><span id="carbValue">0g</span></div>
+                                    <p>Carbohydrate</p>
+                                </div>
+                                <div class="circle-item">
+                                    <div class="circle circle-protein"><span id="proteinValue">0g</span></div>
+                                    <p>Protein</p>
+                                </div>
+                                <div class="circle-item">
+                                    <div class="circle circle-fiber"><span id="fiberValue">0g</span></div>
+                                    <p>Fiber</p>
+                                </div>
+                            </div>
                         </div>
 
-                        <!-- Macronutrient Pie Chart -->
-                        <div class="macro-pie-box">
-                            <h4>Macronutrients per portion</h4>
-                            <p class="section-subtitle">Macronutrient distribution of the recipe</p>
-                            <img src="/assets/images/pie-placeholder.png" alt="Macronutrient Pie Chart">
+                        <!-- Macronutrients Pie Chart -->
+                        <div class="macro-piechart">
+                            <h3>Macronutrients</h3>
+                            <p>Macronutrient distribution of the recipe</p>
+                            <canvas id="macroPieChart"></canvas>
                         </div>
 
-                        <!-- Micronutrient Table -->
                         <div class="micronutrient-table-box">
-                            <h4>Micronutrients per portion</h4>
-                            <p class="section-subtitle">Micronutrient distribution of the recipe</p>
-                            <table>
-                                <tr>
+                            <h4>Micronutrients</h4>
+                            <p>Micronutrient distribution of the recipe</p>
+                            <table id="micronutrientList">
+                                <!-- <tr>
                                     <td>Sodium</td>
-                                    <td>1418 mg</td>
+                                    <td>0 mg</td>
                                 </tr>
                                 <tr>
                                     <td>Vitamin A</td>
-                                    <td>18 µg</td>
+                                    <td>6 µg</td>
                                 </tr>
                                 <tr>
                                     <td>Vitamin B-6</td>
@@ -206,22 +248,19 @@
                                 </tr>
                                 <tr>
                                     <td>Vitamin C</td>
-                                    <td>50 mg</td>
-                                </tr>
-                                <tr>
-                                    <td>Iron</td>
-                                    <td>7 mg</td>
-                                </tr>
-                                <!-- ... -->
+                                    <td>14 mg</td>
+                                </tr> -->
+                                <!-- Các dòng khác -->
                             </table>
                         </div>
-
                     </div>
                 </div>
 
             </div>
         </main>
     </div>
+
+    <script src="/js/recipe-detail.js"></script>
 </body>
 
 </html>

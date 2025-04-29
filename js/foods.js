@@ -299,6 +299,10 @@ closeModalBtn.addEventListener("click", () => {
   modal.style.display = "none";
 });
 
+document.getElementById("createCancel").addEventListener("click", () => {
+  modal.style.display = "none";
+})
+
 // Thêm
 let foodForm = document.querySelector("#createFoodModal .food-form");
 foodForm.addEventListener("submit", function (e) {
@@ -451,6 +455,10 @@ function showFoodDetail(foodId) {
 }
 
 document.getElementById("closeModal").addEventListener("click", () => {
+  document.getElementById("foodModal").style.display = "none";
+});
+
+document.getElementById("btnCancel").addEventListener("click", () => {
   document.getElementById("foodModal").style.display = "none";
 });
 

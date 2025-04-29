@@ -161,7 +161,7 @@ function getRecipeTotal(recipe, nutrient) {
 // ==== Hàm render recipe card ====
 function renderAllRecipes(recipeArr) {
   recipeList.innerHTML = recipeArr.length ? recipeArr.map(recipe => `
-    <div class="recipe-card">
+    <div class="recipe-card" data-id="${recipe.id}">
       <div class="card-left">
         <div class="card-badge">
           <i class="fas fa-users"></i>
@@ -277,52 +277,78 @@ sortIcon.addEventListener("click", () => {
 
 // ==== Xử lý thả tim ====
 document.addEventListener("click", (e) => {
-  const heart = e.target.closest(".likes i");
-  if (!heart) return;
-  const card = heart.closest(".recipe-card");
-  const title = card.querySelector(".recipe-title").textContent.trim();
-  const recipe = recipes.find(r => r.name === title);
-  if (!recipe) return;
+  const likesBlock = e.target.closest(".likes");
+  if (likesBlock) {
+    e.stopPropagation();
+    const card = likesBlock.closest(".recipe-card");
+    if (!card) return;
 
-  if (!recipe.likedBy) recipe.likedBy = [];
-  const isLiked = recipe.likedBy.includes(currentUser.email);
+    const recipeId = Number(card.dataset.id);
+    const recipe = recipes.find(r => r.id === recipeId);
+    if (!recipe) return;
 
-  if (isLiked) {
-    recipe.likedBy = recipe.likedBy.filter(email => email !== currentUser.email);
-    recipe.likes = Math.max(0, (recipe.likes || 0) - 1);
-    Toastify({
-      text: "💔 Bạn đã hủy thả tim!",
-      duration: 3000,
-      gravity: "top",
-      position: "center",
-      style: {
-        background: "#ffe0e0",
-        color: "#c62828",
-        borderRadius: "8px",
-        fontWeight: "bold",
-      },
-    }).showToast();
+    // Xử lý thả tim
+    if (!recipe.likedBy) recipe.likedBy = [];
+    const isLiked = recipe.likedBy.includes(currentUser.email);
 
-  } else {
-    recipe.likedBy.push(currentUser.email);
-    recipe.likes = (recipe.likes || 0) + 1;
-    Toastify({
-      text: "💖 Bạn đã thả tim!",
-      duration: 3000,
-      gravity: "top",
-      position: "center",
-      style: {
-        background: "#f8bbd0",
-        color: "#880e4f",
-        borderRadius: "8px",
-        fontWeight: "bold",
-      },
-    }).showToast();
+    if (isLiked) {
+      recipe.likedBy = recipe.likedBy.filter(email => email !== currentUser.email);
+      recipe.likes = Math.max(0, (recipe.likes || 0) - 1);
+      Toastify({
+        text: "💔 Bạn đã hủy thả tim!",
+        duration: 3000,
+        gravity: "top",
+        position: "center",
+        style: {
+          background: "#ffe0e0",
+          color: "#c62828",
+          borderRadius: "8px",
+          fontWeight: "bold",
+        },
+      }).showToast();
+    } else {
+      recipe.likedBy.push(currentUser.email);
+      recipe.likes = (recipe.likes || 0) + 1;
+      Toastify({
+        text: "💖 Bạn đã thả tim!",
+        duration: 3000,
+        gravity: "top",
+        position: "center",
+        style: {
+          background: "#f8bbd0",
+          color: "#880e4f",
+          borderRadius: "8px",
+          fontWeight: "bold",
+        },
+      }).showToast();
+    }
+
+    localStorage.setItem("recipes", JSON.stringify(recipes));
+    renderPaginatedRecipes();
+    return; // Dừng luôn, không cho chạy code mở chi tiết
   }
 
-  localStorage.setItem("recipes", JSON.stringify(recipes));
-  renderPaginatedRecipes();
+  // Nếu không click vào likes, kiểm tra click vào recipe card
+  const card = e.target.closest(".recipe-card");
+  if (card) {
+    const recipeId = Number(card.dataset.id);
+    openRecipeDetail(recipeId);
+  }
 });
+
+
+// Hàm để mở info
+function openRecipeDetail(id) {
+  const recipe = recipes.find(r => r.id === id);
+
+  if (recipe.userEmail === currentUser.email) {
+    localStorage.setItem("tempRecipe", JSON.stringify(recipe))
+    window.location.href = "/page/recipe-edit-detail.html"
+  } else {
+    localStorage.setItem("tempRecipe", JSON.stringify(recipe))
+    window.location.href = "/page/recipe-detail.html"
+  }
+}
 
 // ==== Initial render ====
 renderPaginatedRecipes();

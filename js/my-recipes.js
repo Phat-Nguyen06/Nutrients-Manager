@@ -36,7 +36,7 @@ function getRecipeTotal(recipe, nutrient) {
 function renderAllRecipes(recipeArr) {
   recipeList.innerHTML = recipeArr.length > 0
     ? recipeArr.map(recipe => `
-      <div class="recipe-card">
+      <div class="recipe-card" data-id="${recipe.id}">
         <div class="card-left">
           <div class="card-badge">
             <i class="fas fa-users"></i>
@@ -224,56 +224,63 @@ sortIcon.addEventListener("click", () => {
 
 // ==== Like công thức ==== 
 document.addEventListener("click", function (e) {
-  const heartIcon = e.target.closest(".likes i");
-  if (!heartIcon) return;
+  const heartIcon = e.target.closest(".likes");
+  if (heartIcon) {
+    const card = heartIcon.closest(".recipe-card");
+    const recipeTitle = card.querySelector(".recipe-title").textContent.trim();
 
-  const card = heartIcon.closest(".recipe-card");
-  const recipeTitle = card.querySelector(".recipe-title").textContent.trim();
+    const recipe = recipes.find(r => r.name === recipeTitle);
+    if (!recipe) return;
 
-  const recipe = recipes.find(r => r.name === recipeTitle);
-  if (!recipe) return;
+    if (!recipe.likedBy) recipe.likedBy = [];
 
-  if (!recipe.likedBy) recipe.likedBy = [];
+    const isLiked = recipe.likedBy.includes(currentUser.email);
 
-  const isLiked = recipe.likedBy.includes(currentUser.email);
+    if (isLiked) {
+      recipe.likedBy = recipe.likedBy.filter(email => email !== currentUser.email);
+      if (recipe.likes > 0) recipe.likes--;
+      updateFavoriteCount();
+      Toastify({
+        text: "💔 Bạn đã hủy thả tim!",
+        duration: 3000,
+        gravity: "top",
+        position: "center",
+        style: {
+          background: "#ffe0e0",
+          color: "#c62828",
+          borderRadius: "8px",
+          fontWeight: "bold",
+        },
+      }).showToast();
 
-  if (isLiked) {
-    recipe.likedBy = recipe.likedBy.filter(email => email !== currentUser.email);
-    if (recipe.likes > 0) recipe.likes--;
-    updateFavoriteCount();
-    Toastify({
-      text: "💔 Bạn đã hủy thả tim!",
-      duration: 3000,
-      gravity: "top",
-      position: "center",
-      style: {
-        background: "#ffe0e0",
-        color: "#c62828",
-        borderRadius: "8px",
-        fontWeight: "bold",
-      },
-    }).showToast();
+    } else {
+      recipe.likedBy.push(currentUser.email);
+      recipe.likes++;
+      updateFavoriteCount();
+      Toastify({
+        text: "💔 Bạn đã hủy thả tim!",
+        duration: 3000,
+        gravity: "top",
+        position: "center",
+        style: {
+          background: "#ffe0e0",
+          color: "#c62828",
+          borderRadius: "8px",
+          fontWeight: "bold",
+        },
+      }).showToast();
+    }
 
-  } else {
-    recipe.likedBy.push(currentUser.email);
-    recipe.likes++;
-    updateFavoriteCount();
-    Toastify({
-      text: "💔 Bạn đã hủy thả tim!",
-      duration: 3000,
-      gravity: "top",
-      position: "center",
-      style: {
-        background: "#ffe0e0",
-        color: "#c62828",
-        borderRadius: "8px",
-        fontWeight: "bold",
-      },
-    }).showToast();
+    localStorage.setItem("recipes", JSON.stringify(recipes));
+    renderPaginatedRecipes();
+    return;
   }
 
-  localStorage.setItem("recipes", JSON.stringify(recipes));
-  renderPaginatedRecipes();
+  const card = e.target.closest(".recipe-card");
+  if (card) {
+    const recipeId = Number(card.dataset.id);
+    openRecipeDetail(recipeId);
+  }
 });
 
 function updateFavoriteCount() {
@@ -285,5 +292,17 @@ function updateFavoriteCount() {
   favoriteCount.textContent = liked.length;
 }
 
-// ==== Khởi động lần đầu ==== 
+// Hàm để mở info
+function openRecipeDetail(id) {
+  const recipe = recipes.find(r => r.id === id);
+
+  if (recipe.userEmail === currentUser.email) {
+    localStorage.setItem("tempRecipe", JSON.stringify(recipe))
+    window.location.href = "/page/recipe-edit-detail.html"
+  } else {
+    localStorage.setItem("tempRecipe", JSON.stringify(recipe))
+    window.location.href = "/page/recipe-detail.html"
+  }
+}
+
 renderPaginatedRecipes();

@@ -328,6 +328,17 @@ a {
     color: #CC5965;
     font-weight: 500;
     cursor: pointer;
+    
+    padding: 5px 10px;
+    border: 1px solid #f8d7da;
+    background-color: #fff0f1;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.likes:hover {
+    background-color: #f5c6cb;
+    border-color: #f5c6cb;
 }
 
 .recipe-title {
