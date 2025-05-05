@@ -4,17 +4,18 @@ if (!currentUser) {
 }
 document.querySelector(".user-name").textContent = `Xin chào, ${currentUser.username}`;
 
+let btnSignOut = document.querySelector(".signout-btn");
+btnSignOut.addEventListener("click", () => {
+  localStorage.removeItem("currentUser");
+  window.location.href = "/login.html";
+});
+
 let recipes = JSON.parse(localStorage.getItem("recipes")) || [];
 
 const recipeList = document.querySelector(".recipe-list");
 const paginationContainer = document.getElementById("pagination");
 let currentPage = 1;
 const itemsPerPage = 4;
-
-const searchInput = document.querySelector('.search-bar input[type="text"]');
-const sortSelect = document.getElementById('sortSelect');
-const categorySelect = document.getElementById('categorySelect');
-const sortIcon = document.querySelector(".sort-group i");
 
 let currentSortKey = "";
 let isSortAsc = false;
@@ -71,7 +72,7 @@ function renderAllRecipes(recipeArr) {
     : "<p>No recipes found.</p>";
 }
 
-let viewingMode = "all"; // "all", "favorites", "myrecipes"
+let viewingMode = "all";
 
 // Khi click nút "Favorites"
 document.querySelector(".favorites-toggle").addEventListener("click", () => {
@@ -95,6 +96,11 @@ document.querySelector(".all-recipes-btn").addEventListener("click", () => {
 });
 
 // ==== Lọc và phân trang ==== 
+const searchInput = document.querySelector('.search-bar input[type="text"]');
+const sortSelect = document.getElementById('sortSelect');
+const categorySelect = document.getElementById('categorySelect');
+const sortIcon = document.querySelector(".sort-group i");
+
 function filterRecipes(recipesList) {
   const keyword = searchInput.value.toLowerCase().trim();
   const selectedCategory = categorySelect.value;
@@ -181,7 +187,6 @@ function getUserRecipes() {
     (recipe.likedBy && recipe.likedBy.includes(currentUser.email))
   );
 }
-
 
 // ==== Render Trang hiện tại ==== 
 function renderPaginatedRecipes() {

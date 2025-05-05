@@ -28,7 +28,6 @@ let cookingSteps = [];
 let currentAddingEquivalent = null;
 
 
-
 let currentPage = 1;
 const itemsPerPage = 4;
 // ==== Ingredients ====

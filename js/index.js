@@ -5,6 +5,12 @@ if (!currentUser) {
 }
 document.querySelector(".user-name").textContent = `Xin chào, ${currentUser.username}`;
 
+let btnSignOut = document.querySelector(".signout-btn");
+btnSignOut.addEventListener("click", () => {
+  localStorage.removeItem("currentUser");
+  window.location.href = "/login.html";
+});
+
 // ==== Load công thức mẫu nếu chưa có ====
 if (!localStorage.getItem("recipes")) {
   const sampleRecipes = [
@@ -19,7 +25,7 @@ if (!localStorage.getItem("recipes")) {
         { food: { name: "Avocado", macronutrients: { energy: 160, fat: 15, carbohydrate: 9, protein: 2 } } },
         { food: { name: "Egg", macronutrients: { energy: 78, fat: 5, carbohydrate: 1, protein: 6 } } }
       ],
-      category: [{ id: 1, name: "Breakfast and snacks" }],
+      category: [{ id: 1, name: "Breakfast and snacks" }, { id: 2, name: "Lean & Green" }],
       cookingMethods: [{ id: 1, content: "Toast bread, mash avocado, top with boiled egg slices." }],
       likes: 12,
       likedBy: [],
@@ -136,10 +142,6 @@ let recipes = JSON.parse(localStorage.getItem("recipes"));
 // ==== DOM Element ====
 const recipeList = document.querySelector(".recipe-list");
 const paginationContainer = document.getElementById("pagination");
-const searchInput = document.querySelector('.search-bar input[type="text"]');
-const sortSelect = document.getElementById('sortSelect');
-const categorySelect = document.getElementById('categorySelect');
-const sortIcon = document.querySelector(".sort-group i");
 
 let currentPage = 1;
 const itemsPerPage = 4;
@@ -194,6 +196,11 @@ function renderAllRecipes(recipeArr) {
 }
 
 // ==== Hàm lọc và tìm kiếm ====
+const searchInput = document.querySelector('.search-bar input[type="text"]');
+const sortSelect = document.getElementById('sortSelect');
+const categorySelect = document.getElementById('categorySelect');
+const sortIcon = document.querySelector(".sort-group i");
+
 function filterRecipes(recipeArr) {
   const keyword = searchInput.value.toLowerCase().trim();
   const selectedCategory = categorySelect.value;
@@ -335,7 +342,6 @@ document.addEventListener("click", (e) => {
     openRecipeDetail(recipeId);
   }
 });
-
 
 // Hàm để mở info
 function openRecipeDetail(id) {

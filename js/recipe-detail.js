@@ -1,4 +1,3 @@
-// ==== Kiểm tra người dùng đã đăng nhập chưa ====
 const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 if (!currentUser) {
   window.location.href = "/login.html";
@@ -6,51 +5,38 @@ if (!currentUser) {
 
 document.querySelector(".user-name").textContent = `Xin chào, ${currentUser.username}`;
 
-// ==== Lấy tempRecipe (nếu không có thì về my-recipes) ====
 const tempRecipe = JSON.parse(localStorage.getItem("tempRecipe"));
 if (!tempRecipe) {
   window.location.href = "/page/my-recipes.html";
 }
 
-// ==== Các phần tử DOM cần update ====
-const badge = document.querySelector(".badge span");
-const likeIcon = document.querySelector(".likes-summary i");
-const likeCount = document.querySelector(".likes-summary span");
-const image = document.querySelector(".summary-image img");
-const tagContainer = document.querySelector(".summary-tags");
-const addFavBtn = document.querySelector(".btn-fav");
-
-const nameField = document.querySelectorAll(".info-value")[0];
-const descField = document.querySelectorAll(".info-value")[1];
-const authorField = document.querySelectorAll(".info-value")[2];
-const totalTimeField = document.querySelectorAll(".info-value")[3];
-const prepTimeField = document.querySelectorAll(".info-value")[4];
-const finalWeightField = document.querySelectorAll(".info-value")[5];
-const portionsField = document.querySelectorAll(".info-value")[6];
-
-const ingredientList = document.querySelector(".ingredients-list");
-const methodContent = document.querySelector(".method-content");
-
-const fatValue = document.getElementById("fatValue");
-const carbValue = document.getElementById("carbValue");
-const proteinValue = document.getElementById("proteinValue");
-const fiberValue = document.getElementById("fiberValue");
-
-
 // ==== Render thông tin cơ bản ====
+let badge = document.querySelector(".badge span");
+let likeCount = document.querySelector(".likes-summary span");
+let image = document.querySelector(".summary-image img");
+
 badge.textContent = tempRecipe.category?.[0]?.name || "Community Recipes";
 likeCount.textContent = tempRecipe.likes || 0;
 image.src = tempRecipe.coverSrc || "/assets/images/img-avata-food/default-avata.png";
 
+let nameField = document.querySelectorAll(".info-value")[0];
+let descField = document.querySelectorAll(".info-value")[1];
+let authorField = document.querySelectorAll(".info-value")[2];
+let totalTimeField = document.querySelectorAll(".info-value")[3];
+let prepTimeField = document.querySelectorAll(".info-value")[4];
+let finalWeightField = document.querySelectorAll(".info-value")[5];
+let portionsField = document.querySelectorAll(".info-value")[6];
 nameField.textContent = tempRecipe.name;
 descField.textContent = tempRecipe.description;
 authorField.textContent = tempRecipe.author;
 totalTimeField.textContent = tempRecipe.totalTime;
 prepTimeField.textContent = tempRecipe.preparationTime;
-finalWeightField.textContent = `${tempRecipe.finalWeight} grams`;
+finalWeightField.textContent = tempRecipe.finalWeight != null? `${tempRecipe.finalWeight} grams` : "-";
 portionsField.textContent = tempRecipe.portions;
 
 // ==== Render tags ====
+let tagContainer = document.querySelector(".summary-tags");
+let ingredientList = document.querySelector(".ingredients-list");
 tagContainer.innerHTML = tempRecipe.category.map(c => `
   <span class="tag">
     <img src="/assets/images/img-icon/Icon (1).png" alt="">
@@ -66,11 +52,17 @@ ingredientList.innerHTML = tempRecipe.ingredients.map(i => `
 `).join("");
 
 // ==== Render cooking steps ====
+let methodContent = document.querySelector(".method-content");
 methodContent.innerHTML = tempRecipe.cookingMethods.map(step => {
   return `${step.content}<br><br>`;
 }).join("");
 
 // ==== Render macronutrients tổng ====
+let fatValue = document.getElementById("fatValue");
+let carbValue = document.getElementById("carbValue");
+let proteinValue = document.getElementById("proteinValue");
+let fiberValue = document.getElementById("fiberValue");
+
 function renderMacro() {
   let fat = 0, carb = 0, protein = 0, fiber = 0;
 
@@ -122,7 +114,7 @@ function renderMicronutrients() {
     totalPotassium = 0, totalZinc = 0, totalCopper = 0, totalFluoride = 0, totalManganese = 0, totalSelenium = 0, totalThiamin = 0,
     totalRiboflavin = 0, totalNiacin = 0, totalPantothenicAcid = 0, totalFolateTotal = 0;
 
-    tempRecipe.ingredients.forEach(item => {
+  tempRecipe.ingredients.forEach(item => {
     const main = item.food.micronutrients || {};
     totalSodium += Number(main.sodium || 0);
     totalVitaminA += Number(main.vitamin_a || 0);
@@ -181,6 +173,8 @@ function renderMicronutrients() {
 }
 
 // ==== Xử lý click Add to favourite ==== 
+let addFavBtn = document.querySelector(".btn-fav");
+let likeIcon = document.querySelector(".likes-summary i");
 addFavBtn.addEventListener("click", () => {
   const recipes = JSON.parse(localStorage.getItem("recipes")) || [];
   const recipe = recipes.find(r => r.id === tempRecipe.id);

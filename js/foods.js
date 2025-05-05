@@ -154,13 +154,12 @@ let foods = JSON.parse(localStorage.getItem("foods")) || [
   }
 ];
 
-// ===== DOM Element =====
+
 const foodList = document.querySelector(".food-table");
 const paginationContainer = document.querySelector(".pagination-foods");
 const searchInput = document.getElementById("searchInput");
 const sortSelect = document.getElementById("sortNutrientSelect");
 const categorySelect = document.getElementById("foodCategorySelect");
-
 
 let currentPage = 1;
 const itemsPerPage = 6;
@@ -216,10 +215,9 @@ function getFilteredFoods() {
 const sortIcon = document.querySelector(".sort-group i");
 
 sortIcon.addEventListener("click", () => {
-  if (!currentSortKey) return; // chưa chọn nutrient thì không xử lý
+  if (!currentSortKey) return;
 
-  isSortAsc = !isSortAsc; // toggle tăng/giảm
-  // Đổi icon luôn nếu muốn
+  isSortAsc = !isSortAsc;
   sortIcon.classList.toggle("fa-sort-amount-up-alt", !isSortAsc);
   sortIcon.classList.toggle("fa-sort-amount-down-alt", isSortAsc);
 
@@ -437,7 +435,11 @@ function showFoodDetail(foodId) {
   const macroInputs = modal.querySelectorAll(".macro-grid .nutrient-row");
   macroInputs.forEach(row => {
     const label = row.querySelector(".nutrient-label").textContent.trim()
-      .toLowerCase().replace(/[()]/g, "").replace(/\s+/g, "_").replace(/-/g, "_").replace(/[^a-z0-9_]/g, "");
+      .toLowerCase()
+      .replace(/[()]/g, "")
+      .replace(/\s+/g, "_")
+      .replace(/-/g, "_")
+      .replace(/[^a-z0-9_]/g, "");
     row.querySelector("input").value = macros[label] ?? "";
   });
 
@@ -560,20 +562,27 @@ document.getElementById("btn-delete").addEventListener("click", () => {
   if (!food) return;
 
   if (food.userEmail == currentUser.email) {
-    let checkDelete = confirm("Bạn có chắc chắn muốn xóa món ăn này không?");
-    if (checkDelete) {
-      foods = foods.filter(f => f.id !== currentEditIndex);
-      localStorage.setItem("foods", JSON.stringify(foods));
-      Toastify({
-        text: "🗑️ Món ăn đã được xóa!",
-        duration: 3000,
-        style: { background: "#e53935" }
-      }).showToast();
-      renderPaginatedFoods();
-    }
-    else {
-      return;
-    }
+    Swal.fire({
+      title: 'Bạn có chắc chắn?',
+      text: "Món ăn này sẽ bị xóa vĩnh viễn!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Vâng, xóa nó!',
+      cancelButtonText: 'Hủy',
+      confirmButtonColor: '#e53935',
+      cancelButtonColor: '#aaa'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        foods = foods.filter(f => f.id !== currentEditIndex);
+        localStorage.setItem("foods", JSON.stringify(foods));
+        Toastify({
+          text: "🗑️ Món ăn đã được xóa!",
+          duration: 3000,
+          style: { background: "#e53935" }
+        }).showToast();
+        renderPaginatedFoods();
+      }
+    });
   }
   else {
     Toastify({

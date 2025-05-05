@@ -1,40 +1,35 @@
-// ==== recipe-edit-detail.js ====
-
-// Kiểm tra đăng nhập
-const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+let currentUser = JSON.parse(localStorage.getItem("currentUser"));
 if (!currentUser) {
     window.location.href = "/login.html";
 }
 document.querySelector(".user-name").textContent = `Xin chào, ${currentUser.username}`;
 
-// Load dữ liệu tempRecipe
-const tempRecipe = JSON.parse(localStorage.getItem("tempRecipe"));
+// tempRecipe
+let tempRecipe = JSON.parse(localStorage.getItem("tempRecipe"));
 if (!tempRecipe) {
     window.location.href = "/page/my-recipes.html";
 }
 
-// Tải dữ liệu foods
+// foods
 let allFoods = JSON.parse(localStorage.getItem("foods")) || [];
 
 // Các biến dữ liệu
 let selectedIngredients = tempRecipe.ingredients || [];
 let cookingSteps = tempRecipe.cookingMethods || [];
 let currentPage = 1;
-const itemsPerPage = 4;
+let itemsPerPage = 4;
 let currentSortKey = "";
 let isSortAsc = false;
 
-// DOM Element
-const uploadBox = document.getElementById('uploadBox');
-const uploadInput = document.getElementById('uploadInput');
-const uploadImage = document.getElementById('uploadImage');
-const ingredientList = document.getElementById("ingredientList");
-const paginationContainer = document.querySelector(".pagination");
-const selectedIngredientsDiv = document.getElementById("selectedIngredients");
-const cookingMethodsList = document.getElementById("cookingMethodsList");
-const ingredientSearch = document.getElementById("ingredientSearch");
-const sortSelect = document.getElementById("sortSelect");
-const micronutrientList = document.getElementById("micronutrientList");
+
+let uploadImage = document.getElementById('uploadImage');
+let ingredientList = document.getElementById("ingredientList");
+let paginationContainer = document.querySelector(".pagination");
+let selectedIngredientsDiv = document.getElementById("selectedIngredients");
+let cookingMethodsList = document.getElementById("cookingMethodsList");
+let ingredientSearch = document.getElementById("ingredientSearch");
+let sortSelect = document.getElementById("sortSelect");
+let micronutrientList = document.getElementById("micronutrientList");
 
 // Nạp dữ liệu vào form
 document.getElementById("recipeNameInput").value = tempRecipe.name || "";
@@ -65,6 +60,9 @@ if (tempRecipe.category) {
 }
 
 // ==== Upload ảnh mới nếu đổi ====
+let uploadBox = document.getElementById('uploadBox');
+let uploadInput = document.getElementById('uploadInput');
+
 uploadBox.addEventListener('click', () => {
     uploadInput.click();
 });
@@ -339,7 +337,6 @@ document.getElementById("publishRecipeBtn").addEventListener("click", () => {
     }
 });
 
-// ==== Initial Load ====
 renderSelectedIngredients();
 renderCookingMethods();
 updateGlobalAnalysis();
