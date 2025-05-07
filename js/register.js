@@ -38,6 +38,10 @@ registerForm.addEventListener("submit", function (e) {
         errorPasswordRegister.textContent = "Vui lòng nhập mật khẩu.";
         errorPasswordRegister.style.display = "block";
         hasError = true;
+    } else if (password.length < 8) {
+        errorPasswordRegister.textContent = "Mật khẩu phải có ít nhất 8 ký tự.";
+        errorPasswordRegister.style.display = "block";
+        hasError = true;
     } else {
         errorPasswordRegister.textContent = "";
         errorPasswordRegister.style.display = "none";

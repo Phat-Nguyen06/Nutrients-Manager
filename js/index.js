@@ -5,6 +5,160 @@ if (!currentUser) {
 }
 document.querySelector(".user-name").textContent = `Xin chào, ${currentUser.username}`;
 
+// FOOOD
+let foods = JSON.parse(localStorage.getItem("foods"));
+
+if (!foods) {
+  foods = [
+    {
+      id: 1,
+      name: "Boiled Egg",
+      source: "Minh Cuong Tran",
+      category: "Protein Foods",
+      quantity: "1 egg (50g)",
+      userEmail: "nutrium@gmail.com",
+      macronutrients: {
+        energy: 78,
+        fat: 5,
+        carbohydrate: 0.6,
+        protein: 6,
+      }
+    },
+    {
+      id: 2,
+      name: "Brown Rice, cooked",
+      source: "Minh Cuong Tran",
+      category: "Grains",
+      quantity: "1 cup (195g)",
+      userEmail: "nutrium@gmail.com",
+      macronutrients: {
+        energy: 216,
+        fat: 1.8,
+        carbohydrate: 45,
+        protein: 5,
+      }
+    },
+    {
+      id: 3,
+      name: "Grilled Chicken Breast",
+      source: "Minh Cuong Tran",
+      category: "Protein Foods",
+      quantity: "100g",
+      userEmail: "nutrium@gmail.com",
+      macronutrients: {
+        energy: 165,
+        fat: 3.6,
+        carbohydrate: 0,
+        protein: 31,
+      }
+    },
+    {
+      id: 4,
+      name: "Apple",
+      source: "Minh Cuong Tran",
+      category: "Fruits",
+      quantity: "1 medium (182g)",
+      userEmail: "nutrium@gmail.com",
+      macronutrients: {
+        energy: 95,
+        fat: 0.3,
+        carbohydrate: 25,
+        protein: 0.5,
+      }
+    },
+    {
+      id: 5,
+      name: "Broccoli, steamed",
+      source: "Minh Cuong Tran",
+      category: "Vegetables and Vegetable Products",
+      quantity: "1 cup (156g)",
+      userEmail: "nutrium@gmail.com",
+      macronutrients: {
+        energy: 55,
+        fat: 0.6,
+        carbohydrate: 11,
+        protein: 3.7,
+      }
+    },
+    {
+      id: 6,
+      name: "Salmon, grilled",
+      source: "Minh Cuong Tran",
+      category: "Fish and Seafood",
+      quantity: "100g",
+      userEmail: "nutrium@gmail.com",
+      macronutrients: {
+        energy: 208,
+        fat: 13,
+        carbohydrate: 0,
+        protein: 20,
+      }
+    },
+    {
+      id: 7,
+      name: "Whole Wheat Bread",
+      source: "Minh Cuong Tran",
+      category: "Grains",
+      quantity: "1 slice (28g)",
+      userEmail: "nutrium@gmail.com",
+      macronutrients: {
+        energy: 69,
+        fat: 1.1,
+        carbohydrate: 12,
+        protein: 3.6,
+      }
+    },
+    {
+      id: 8,
+      name: "Banana",
+      source: "Minh Cuong Tran",
+      category: "Fruits",
+      quantity: "1 medium (118g)",
+      userEmail: "nutrium@gmail.com",
+      macronutrients: {
+        energy: 105,
+        fat: 0.3,
+        carbohydrate: 27,
+        protein: 1.3,
+      }
+    },
+    {
+      id: 9,
+      name: "Avocado",
+      source: "Minh Cuong Tran",
+      category: "Fruits",
+      quantity: "1 fruit (201g)",
+      userEmail: "nutrium@gmail.com",
+      macronutrients: {
+        energy: 322,
+        fat: 29,
+        carbohydrate: 17,
+        protein: 4,
+      }
+    },
+    {
+      id: 10,
+      name: "Greek Yogurt, plain",
+      source: "Minh Cuong Tran",
+      category: "Dairy and Eggs",
+      quantity: "1 cup (245g)",
+      userEmail: "nutrium@gmail.com",
+      macronutrients: {
+        energy: 130,
+        fat: 0.4,
+        carbohydrate: 9,
+        protein: 23,
+      }
+    }
+  ];
+
+  localStorage.setItem("foods", JSON.stringify(foods));
+}
+
+
+
+
+
 let btnSignOut = document.querySelector(".signout-btn");
 btnSignOut.addEventListener("click", () => {
   localStorage.removeItem("currentUser");
